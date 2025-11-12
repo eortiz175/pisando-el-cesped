@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pisando el Cesped | Afro-Cuban Funk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            color: white;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffcc00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .language-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffcc00;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #4db8ff;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .band-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .member {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .member:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .member h3 {
+            color: #ffcc00;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .member p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #ffcc00;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #ffd633;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ffcc00;
+            transform: translateY(-3px);
+        }
+
+        .language-es {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .band-members {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video autoplay muted loop id="backgroundVideo">
+            <!-- Replace this with your actual band video later -->
+            <source src="https://assets.codepen.io/1468070/concert-bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="overlay"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">Pisando el Cesped</div>
+            <button class="language-toggle" id="languageToggle">
+                <i class="fas fa-language"></i>
+                <span>Español</span>
+            </button>
+        </header>
+
+        <main>
+            <div class="content">
+                <div class="language-en">
+                    <h1>Pisando el Cesped</h1>
+                    <h2>The Sound of a Hemisphere</h2>
+                    <p>Pisando el Cesped is more than a band; it's a musical convergence of the Americas and beyond. Founded by a Cuban immigrant maestro, the band's very essence is built on a journey of expression. What began with his crossing to seek a new life now finds its voice in the universal language of music.</p>
+                    <p>A master brass player, percussionist, and bassist, with a background as a music professor in Cuba and Colombia, he leads this ensemble with profound artistry.</p>
+                    
+                    <h2>Meet the Band</h2>
+                    <div class="band-members">
+                        <div class="member">
+                            <h3>Cuban Lead</h3>
+                            <p>Master brass player, percussionist, and bassist. Former music professor in Cuba and Colombia.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Puerto Rican Drummer</h3>
+                            <p>Over 20 years experience in Spanish, funk, disco, and rock bands.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Japanese Pianist</h3>
+                            <p>Master of classical, jazz, Spanish music and everything in between.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Peruvian Bassist</h3>
+                            <p>Brings strong classical and new-age rock vibes to the ensemble.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Dominican Guitarist</h3>
+                            <p>Completes the circle with fiery rhythms and melodies.</p>
+                        </div>
+                    </div>
+                    
+                    <p>Together, they fuse their powers to create electrifying Afro-Cuban funk that is both timeless and fresh, a testament to their shared belief that borders do not exist on the dance floor.</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-music"></i> Listen Now
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-calendar-alt"></i> Upcoming Shows
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="language-es">
+                    <h1>Pisando el Césped</h1>
+                    <h2>El Sonido de un Hemisferio</h2>
+                    <p>Pisando el Césped es más que una banda; es una convergencia musical de las Américas y más allá. Fundada por un maestro inmigrante cubano, la esencia misma de la banda se construye sobre un viaje de expresión. Lo que comenzó con su travesía en busca de una nueva vida ahora encuentra su voz en el lenguaje universal de la música.</p>
+                    <p>Un maestro del metal, percusionista y bajista, con experiencia como profesor de música en Cuba y Colombia, lidera este conjunto con un arte profundo.</p>
+                    
+                    <h2>Conoce a la Banda</h2>
+                    <div class="band-members">
+                        <div class="member">
+                            <h3>Líder Cubano</h3>
+                            <p>Maestro del metal, percusionista y bajista. Ex profesor de música en Cuba y Colombia.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Baterista Puertorriqueño</h3>
+                            <p>Más de 20 años de experiencia en bandas de música española, funk, disco y rock.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Pianista Japonés</h3>
+                            <p>Maestro de la música clásica, jazz, española y todo lo demás.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Bajista Peruano</h3>
+                            <p>Aporta fuertes vibraciones clásicas y de rock de la nueva era al conjunto.</p>
+                        </div>
+                        <div class="member">
+                            <h3>Guitarrista Dominicano</h3>
+                            <p>Completa el círculo con ritmos y melodías ardientes.</p>
+                        </div>
+                    </div>
+                    
+                    <p>Juntos, fusionan sus poderes para crear un electrizante funk afrocubano que es a la vez eterno y fresco, un testimonio de su creencia compartida de que las fronteras no existen en la pista de baile.</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-music"></i> Escuchar Ahora
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-calendar-alt"></i> Próximos Conciertos
+                        </a>
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i> Contáctanos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Follow Pisando el Cesped</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-spotify"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">&copy; 2023 Pisando el Cesped. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggle = document.getElementById('languageToggle');
+            const englishContent = document.querySelector('.language-en');
+            const spanishContent = document.querySelector('.language-es');
+            const toggleText = languageToggle.querySelector('span');
+            
+            // Set initial language
+            let currentLanguage = 'en';
+            
+            languageToggle.addEventListener('click', function() {
+                if (currentLanguage === 'en') {
+                    // Switch to Spanish
+                    englishContent.style.display = 'none';
+                    spanishContent.style.display = 'block';
+                    toggleText.textContent = 'English';
+                    currentLanguage = 'es';
+                } else {
+                    // Switch to English
+                    englishContent.style.display = 'block';
+                    spanishContent.style.display = 'none';
+                    toggleText.textContent = 'Español';
+                    currentLanguage = 'en';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
