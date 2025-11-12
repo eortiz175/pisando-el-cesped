@@ -72,6 +72,47 @@
             color: white;
         }
 
+        .mobile-play-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .mobile-play-overlay.hidden {
+            display: none;
+        }
+
+        .play-button {
+            background: #ffcc00;
+            color: black;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: #ffd633;
+            transform: scale(1.1);
+        }
+
         .overlay {
             position: fixed;
             top: 0;
@@ -415,6 +456,14 @@
     </style>
 </head>
 <body>
+    <!-- Mobile Play Overlay (only shows on mobile) -->
+    <div class="mobile-play-overlay" id="mobilePlayOverlay">
+        <button class="play-button" id="mobilePlayButton">
+            <i class="fas fa-play"></i>
+        </button>
+        <p>Tap to play video</p>
+    </div>
+
     <!-- Sound Toggle Button -->
     <button class="sound-toggle" id="soundToggle" title="Click to unmute">
         <i class="fas fa-volume-mute"></i>
@@ -594,12 +643,13 @@
         let player;
         let isMuted = true;
         const START_TIME = 80; // 1 minute 20 seconds = 80 seconds
+        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtubeBackground', {
                 videoId: 'gX-SQe1FIo8',
                 playerVars: {
-                    'autoplay': 1,
+                    'autoplay': isMobile ? 0 : 1, // Don't autoplay on mobile
                     'mute': 1,
                     'loop': 1,
                     'playlist': 'gX-SQe1FIo8',
@@ -618,9 +668,14 @@
         }
 
         function onPlayerReady(event) {
-            // Video is ready - seek to the start time and play
-            event.target.seekTo(START_TIME, true);
-            event.target.playVideo();
+            if (!isMobile) {
+                // Desktop: seek to start time and play
+                event.target.seekTo(START_TIME, true);
+                event.target.playVideo();
+            } else {
+                // Mobile: show play overlay
+                document.getElementById('mobilePlayOverlay').classList.remove('hidden');
+            }
             updateSoundButton();
         }
 
@@ -629,6 +684,23 @@
             if (event.data === YT.PlayerState.ENDED) {
                 player.seekTo(START_TIME, true);
                 player.playVideo();
+            }
+        }
+
+        function startVideoOnMobile() {
+            if (player && isMobile) {
+                // Hide the play overlay
+                document.getElementById('mobilePlayOverlay').classList.add('hidden');
+                // Start the video (this requires user interaction on mobile)
+                player.seekTo(START_TIME, true);
+                player.playVideo();
+                // Try to unmute after starting
+                setTimeout(() => {
+                    player.unMute();
+                    player.setVolume(100);
+                    isMuted = false;
+                    updateSoundButton();
+                }, 500);
             }
         }
 
@@ -659,9 +731,9 @@
             }
         }
 
-        // Try to autoplay with sound (may not work due to browser restrictions)
+        // Try to autoplay with sound on desktop (may not work due to browser restrictions)
         function tryAutoplayWithSound() {
-            if (player) {
+            if (player && !isMobile) {
                 player.unMute();
                 player.setVolume(100);
                 isMuted = false;
@@ -675,6 +747,7 @@
             const spanishContent = document.querySelector('.language-es');
             const toggleText = languageToggle.querySelector('span');
             const soundToggle = document.getElementById('soundToggle');
+            const mobilePlayButton = document.getElementById('mobilePlayButton');
 
             // Set initial language to Spanish
             let currentLanguage = 'es';
@@ -698,9 +771,13 @@
             // Sound toggle functionality
             soundToggle.addEventListener('click', toggleSound);
 
-            // Try to autoplay with sound after a short delay
-            // Note: This will likely be blocked by browser autoplay policies
-            setTimeout(tryAutoplayWithSound, 1000);
+            // Mobile play button functionality
+            mobilePlayButton.addEventListener('click', startVideoOnMobile);
+
+            // Try to autoplay with sound after a short delay (desktop only)
+            if (!isMobile) {
+                setTimeout(tryAutoplayWithSound, 1000);
+            }
         });
     </script>
 </body>
