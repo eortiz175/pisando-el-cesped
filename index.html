@@ -321,7 +321,19 @@
 <body>
     <!-- YouTube Background Video -->
     <div class="video-container">
-        <div id="youtubeBackground"></div>
+        <div id="youtubeBackground">
+            <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/gX-SQe1FIo8?si=wmJ69SpM_6jsYSYV&autoplay=1&mute=1&loop=1&playlist=gX-SQe1FIo8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen
+                style="object-fit: cover; pointer-events: none;">
+            </iframe>
+        </div>
     </div>
     <div class="overlay"></div>
 
@@ -494,32 +506,7 @@
     </div>
 
     <script>
-        // YouTube Background Video
-        function initYouTubeBackground() {
-            // REPLACE THIS WITH YOUR YOUTUBE VIDEO ID
-            const videoId = 'YOUR_VIDEO_ID_HERE';
-            
-            const playerDiv = document.getElementById('youtubeBackground');
-            
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/watch?v=gX-SQe1FIo8&t=1172s`;
-            iframe.frameBorder = '0';
-            iframe.allow = 'autoplay; encrypted-media';
-            iframe.allowFullscreen = false;
-            
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.objectFit = 'cover';
-            iframe.style.position = 'absolute';
-            iframe.style.top = '0';
-            iframe.style.left = '0';
-            
-            playerDiv.appendChild(iframe);
-        }
-        
         document.addEventListener('DOMContentLoaded', function() {
-            initYouTubeBackground();
-            
             const languageToggle = document.getElementById('languageToggle');
             const englishContent = document.querySelector('.language-en');
             const spanishContent = document.querySelector('.language-es');
