@@ -28,10 +28,19 @@
             overflow: hidden;
         }
 
-        .video-container video {
-            min-width: 100%;
-            min-height: 100%;
+        #youtubeBackground {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #youtubeBackground iframe {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            pointer-events: none;
         }
 
         .overlay {
@@ -310,12 +319,9 @@
     </style>
 </head>
 <body>
+    <!-- YouTube Background Video -->
     <div class="video-container">
-        <video autoplay muted loop id="backgroundVideo">
-            <!-- Replace this with your actual band video later -->
-            <source src="https://assets.codepen.io/1468070/concert-bg.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <div id="youtubeBackground"></div>
     </div>
     <div class="overlay"></div>
 
@@ -488,7 +494,32 @@
     </div>
 
     <script>
+        // YouTube Background Video
+        function initYouTubeBackground() {
+            // REPLACE THIS WITH YOUR YOUTUBE VIDEO ID
+            const videoId = 'YOUR_VIDEO_ID_HERE';
+            
+            const playerDiv = document.getElementById('youtubeBackground');
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/watch?v=gX-SQe1FIo8&t=1172s`;
+            iframe.frameBorder = '0';
+            iframe.allow = 'autoplay; encrypted-media';
+            iframe.allowFullscreen = false;
+            
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.objectFit = 'cover';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            
+            playerDiv.appendChild(iframe);
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
+            initYouTubeBackground();
+            
             const languageToggle = document.getElementById('languageToggle');
             const englishContent = document.querySelector('.language-en');
             const spanishContent = document.querySelector('.language-es');
