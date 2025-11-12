@@ -118,34 +118,73 @@
             margin-bottom: 1.5rem;
         }
 
-        .band-members {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+        /* New Band Members Circles Section */
+        .band-members-circles {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
         }
 
-        .member {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.2rem;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+        .member-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffcc00;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(135deg, #333, #555);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
-        .member:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+        .member-circle:hover {
+            transform: scale(1.1);
+            border-color: #4db8ff;
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.4);
         }
 
-        .member h3 {
+        .member-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .member-name {
+            position: absolute;
+            bottom: -25px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            border: 1px solid #ffcc00;
+        }
+
+        .member-circle:hover .member-name {
+            background: rgba(255, 204, 0, 0.9);
+            color: black;
+        }
+
+        .placeholder-icon {
+            font-size: 2.5rem;
             color: #ffcc00;
             margin-bottom: 0.5rem;
-            font-size: 1.3rem;
         }
 
-        .member p {
-            font-size: 1rem;
-            margin-bottom: 0;
+        .placeholder-text {
+            font-size: 0.8rem;
+            color: #ccc;
+            text-align: center;
+            padding: 0 0.5rem;
         }
 
         .cta-buttons {
@@ -234,8 +273,38 @@
                 padding: 1.5rem;
             }
             
-            .band-members {
-                grid-template-columns: 1fr;
+            .band-members-circles {
+                gap: 1.5rem;
+            }
+            
+            .member-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .member-name {
+                font-size: 0.8rem;
+                bottom: -20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .band-members-circles {
+                gap: 1rem;
+            }
+            
+            .member-circle {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .member-name {
+                font-size: 0.7rem;
+                bottom: -18px;
+            }
+            
+            .placeholder-icon {
+                font-size: 2rem;
             }
         }
     </style>
@@ -268,27 +337,53 @@
                     <p>Un maestro del metal, percusionista y bajista, con experiencia como profesor de música en Cuba y Colombia, lidera este conjunto con un arte profundo.</p>
                     
                     <h2>Conoce a la Banda</h2>
-                    <div class="band-members">
-                        <div class="member">
-                            <h3>Líder Cubano</h3>
-                            <p>Maestro del metal, percusionista y bajista. Ex profesor de música en Cuba y Colombia.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Baterista Puertorriqueño</h3>
-                            <p>Más de 20 años de experiencia en bandas de música española, funk, disco y rock.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Pianista Japonés</h3>
-                            <p>Maestro de la música clásica, jazz, española y todo lo demás.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Bajista Peruano</h3>
-                            <p>Aporta fuertes vibraciones clásicas y de rock de la nueva era al conjunto.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Guitarrista Dominicano</h3>
-                            <p>Completa el círculo con ritmos y melodías ardientes.</p>
-                        </div>
+                    
+                    <!-- New Band Members Circles -->
+                    <div class="band-members-circles">
+                        <!-- Cuban Lead -->
+                        <a href="#cuban-lead" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-trumpet"></i>
+                            </div>
+                            <div class="placeholder-text">Agregar Foto</div>
+                            <div class="member-name">Cubano</div>
+                        </a>
+                        
+                        <!-- Puerto Rican Drummer -->
+                        <a href="#puerto-rican-drummer" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-drum"></i>
+                            </div>
+                            <div class="placeholder-text">Agregar Foto</div>
+                            <div class="member-name">Puertorriqueño</div>
+                        </a>
+                        
+                        <!-- Japanese Pianist -->
+                        <a href="#japanese-pianist" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-piano"></i>
+                            </div>
+                            <div class="placeholder-text">Agregar Foto</div>
+                            <div class="member-name">Japonés</div>
+                        </a>
+                        
+                        <!-- Peruvian Bassist -->
+                        <a href="#peruvian-bassist" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <div class="placeholder-text">Agregar Foto</div>
+                            <div class="member-name">Peruano</div>
+                        </a>
+                        
+                        <!-- Dominican Guitarist -->
+                        <a href="#dominican-guitarist" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <div class="placeholder-text">Agregar Foto</div>
+                            <div class="member-name">Dominicano</div>
+                        </a>
                     </div>
                     
                     <p>Juntos, fusionan sus poderes para crear un electrizante funk afrocubano que es a la vez eterno y fresco, un testimonio de su creencia compartida de que las fronteras no existen en la pista de baile.</p>
@@ -313,27 +408,53 @@
                     <p>A master brass player, percussionist, and bassist, with a background as a music professor in Cuba and Colombia, he leads this ensemble with profound artistry.</p>
                     
                     <h2>Meet the Band</h2>
-                    <div class="band-members">
-                        <div class="member">
-                            <h3>Cuban Lead</h3>
-                            <p>Master brass player, percussionist, and bassist. Former music professor in Cuba and Colombia.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Puerto Rican Drummer</h3>
-                            <p>Over 20 years experience in Spanish, funk, disco, and rock bands.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Japanese Pianist</h3>
-                            <p>Master of classical, jazz, Spanish music and everything in between.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Peruvian Bassist</h3>
-                            <p>Brings strong classical and new-age rock vibes to the ensemble.</p>
-                        </div>
-                        <div class="member">
-                            <h3>Dominican Guitarist</h3>
-                            <p>Completes the circle with fiery rhythms and melodies.</p>
-                        </div>
+                    
+                    <!-- New Band Members Circles -->
+                    <div class="band-members-circles">
+                        <!-- Cuban Lead -->
+                        <a href="#cuban-lead" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-trumpet"></i>
+                            </div>
+                            <div class="placeholder-text">Add Photo</div>
+                            <div class="member-name">Cuban</div>
+                        </a>
+                        
+                        <!-- Puerto Rican Drummer -->
+                        <a href="#puerto-rican-drummer" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-drum"></i>
+                            </div>
+                            <div class="placeholder-text">Add Photo</div>
+                            <div class="member-name">Puerto Rican</div>
+                        </a>
+                        
+                        <!-- Japanese Pianist -->
+                        <a href="#japanese-pianist" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-piano"></i>
+                            </div>
+                            <div class="placeholder-text">Add Photo</div>
+                            <div class="member-name">Japanese</div>
+                        </a>
+                        
+                        <!-- Peruvian Bassist -->
+                        <a href="#peruvian-bassist" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <div class="placeholder-text">Add Photo</div>
+                            <div class="member-name">Peruvian</div>
+                        </a>
+                        
+                        <!-- Dominican Guitarist -->
+                        <a href="#dominican-guitarist" class="member-circle">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <div class="placeholder-text">Add Photo</div>
+                            <div class="member-name">Dominican</div>
+                        </a>
                     </div>
                     
                     <p>Together, they fuse their powers to create electrifying Afro-Cuban funk that is both timeless and fresh, a testament to their shared belief that borders do not exist on the dance floor.</p>
