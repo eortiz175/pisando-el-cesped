@@ -363,20 +363,7 @@
 
     <!-- YouTube Background Video -->
     <div class="video-container">
-        <div id="youtubeBackground">
-            <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/gX-SQe1FIo8?si=wmJ69SpM_6jsYSYV&autoplay=1&mute=1&loop=1&playlist=gX-SQe1FIo8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen
-                style="object-fit: cover; pointer-events: none;"
-                id="backgroundVideo">
-            </iframe>
-        </div>
+        <div id="youtubeBackground"></div>
     </div>
     <div class="overlay"></div>
 
@@ -446,8 +433,6 @@
                         </a>
                     </div>
                     
-                    <!-- REMOVED THE "Juntos..." PARAGRAPH -->
-                    
                     <div class="cta-buttons">
                         <a href="#" class="btn btn-primary">
                             <i class="fas fa-music"></i> Escuchar Ahora
@@ -516,8 +501,6 @@
                         </a>
                     </div>
                     
-                    <!-- REMOVED THE "Together..." PARAGRAPH -->
-                    
                     <div class="cta-buttons">
                         <a href="#" class="btn btn-primary">
                             <i class="fas fa-music"></i> Listen Now
@@ -546,15 +529,86 @@
         </footer>
     </div>
 
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        let player;
+        let isMuted = true;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubeBackground', {
+                videoId: 'gX-SQe1FIo8',
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,
+                    'loop': 1,
+                    'playlist': 'gX-SQe1FIo8',
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1,
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Video is ready and playing (muted)
+            event.target.playVideo();
+            updateSoundButton();
+        }
+
+        function onPlayerStateChange(event) {
+            // Handle video state changes if needed
+        }
+
+        function updateSoundButton() {
+            const soundToggle = document.getElementById('soundToggle');
+            if (isMuted) {
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                soundToggle.classList.add('muted');
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                soundToggle.classList.remove('muted');
+            }
+        }
+
+        function toggleSound() {
+            if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
+                if (isMuted) {
+                    // Unmute
+                    player.unMute();
+                    player.setVolume(100);
+                    isMuted = false;
+                } else {
+                    // Mute
+                    player.mute();
+                    isMuted = true;
+                }
+                updateSoundButton();
+            }
+        }
+
+        // Try to autoplay with sound (may not work due to browser restrictions)
+        function tryAutoplayWithSound() {
+            if (player) {
+                player.unMute();
+                player.setVolume(100);
+                isMuted = false;
+                updateSoundButton();
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const languageToggle = document.getElementById('languageToggle');
             const englishContent = document.querySelector('.language-en');
             const spanishContent = document.querySelector('.language-es');
             const toggleText = languageToggle.querySelector('span');
             const soundToggle = document.getElementById('soundToggle');
-            let player;
-            let isMuted = true;
 
             // Set initial language to Spanish
             let currentLanguage = 'es';
@@ -576,31 +630,11 @@
             });
 
             // Sound toggle functionality
-            soundToggle.addEventListener('click', function() {
-                const iframe = document.getElementById('backgroundVideo');
-                const videoUrl = iframe.src;
-                
-                if (isMuted) {
-                    // Unmute - remove mute parameter
-                    iframe.src = videoUrl.replace('&mute=1', '') + '&mute=0';
-                    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    soundToggle.classList.remove('muted');
-                } else {
-                    // Mute - add mute parameter
-                    iframe.src = videoUrl.replace('&mute=0', '') + '&mute=1';
-                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    soundToggle.classList.add('muted');
-                }
-                isMuted = !isMuted;
-            });
+            soundToggle.addEventListener('click', toggleSound);
 
-            // Try to autoplay with sound (may not work in all browsers)
-            setTimeout(() => {
-                const iframe = document.getElementById('backgroundVideo');
-                const currentSrc = iframe.src;
-                // Try to unmute after a short delay
-                iframe.src = currentSrc.replace('&mute=1', '') + '&mute=0';
-            }, 1000);
+            // Try to autoplay with sound after a short delay
+            // Note: This will likely be blocked by browser autoplay policies
+            setTimeout(tryAutoplayWithSound, 1000);
         });
     </script>
 </body>
