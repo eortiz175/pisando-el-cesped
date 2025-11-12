@@ -457,7 +457,7 @@
 </head>
 <body>
     <!-- Mobile Play Overlay (only shows on mobile) -->
-    <div class="mobile-play-overlay" id="mobilePlayOverlay">
+    <div class="mobile-play-overlay hidden" id="mobilePlayOverlay">
         <button class="play-button" id="mobilePlayButton">
             <i class="fas fa-play"></i>
         </button>
@@ -643,14 +643,21 @@
         let player;
         let isMuted = true;
         const START_TIME = 80; // 1 minute 20 seconds = 80 seconds
-        let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        // Better mobile detection
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || 
+                   (window.innerWidth <= 768 && window.innerHeight <= 1024);
+        }
+        
+        let isMobile = isMobileDevice();
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtubeBackground', {
                 videoId: 'gX-SQe1FIo8',
                 playerVars: {
                     'autoplay': isMobile ? 0 : 1, // Don't autoplay on mobile
-                    'mute': 1,
+                    'mute': isMobile ? 0 : 1, // Start unmuted on mobile, muted on desktop
                     'loop': 1,
                     'playlist': 'gX-SQe1FIo8',
                     'controls': 0,
@@ -669,12 +676,14 @@
 
         function onPlayerReady(event) {
             if (!isMobile) {
-                // Desktop: seek to start time and play
+                // Desktop: seek to start time and play (muted)
                 event.target.seekTo(START_TIME, true);
                 event.target.playVideo();
+                isMuted = true; // Desktop starts muted
             } else {
-                // Mobile: show play overlay
+                // Mobile: show play overlay and start unmuted
                 document.getElementById('mobilePlayOverlay').classList.remove('hidden');
+                isMuted = false; // Mobile starts unmuted after user interaction
             }
             updateSoundButton();
         }
@@ -694,13 +703,11 @@
                 // Start the video (this requires user interaction on mobile)
                 player.seekTo(START_TIME, true);
                 player.playVideo();
-                // Try to unmute after starting
-                setTimeout(() => {
-                    player.unMute();
-                    player.setVolume(100);
-                    isMuted = false;
-                    updateSoundButton();
-                }, 500);
+                // Mobile starts unmuted by default
+                player.unMute();
+                player.setVolume(100);
+                isMuted = false;
+                updateSoundButton();
             }
         }
 
@@ -734,10 +741,18 @@
         // Try to autoplay with sound on desktop (may not work due to browser restrictions)
         function tryAutoplayWithSound() {
             if (player && !isMobile) {
-                player.unMute();
-                player.setVolume(100);
-                isMuted = false;
-                updateSoundButton();
+                // Desktop: try to unmute after a delay (may be blocked by browser)
+                setTimeout(() => {
+                    try {
+                        player.unMute();
+                        player.setVolume(100);
+                        isMuted = false;
+                        updateSoundButton();
+                    } catch (e) {
+                        // Browser blocked autoplay with sound, keep muted
+                        console.log("Autoplay with sound blocked by browser");
+                    }
+                }, 1000);
             }
         }
 
