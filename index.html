@@ -43,6 +43,35 @@
             pointer-events: none;
         }
 
+        .sound-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 204, 0, 0.8);
+            color: black;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .sound-toggle:hover {
+            background: #ffcc00;
+            transform: scale(1.1);
+        }
+
+        .sound-toggle.muted {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
         .overlay {
             position: fixed;
             top: 0;
@@ -295,6 +324,14 @@
                 font-size: 0.8rem;
                 bottom: -20px;
             }
+            
+            .sound-toggle {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -319,19 +356,25 @@
     </style>
 </head>
 <body>
+    <!-- Sound Toggle Button -->
+    <button class="sound-toggle" id="soundToggle" title="Click to unmute">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
     <!-- YouTube Background Video -->
     <div class="video-container">
         <div id="youtubeBackground">
             <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/gX-SQe1FIo8?si=wmJ69SpM_6jsYSYV&autoplay=1&mute=1&loop=1&playlist=gX-SQe1FIo8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1" 
+                src="https://www.youtube.com/embed/gX-SQe1FIo8?si=wmJ69SpM_6jsYSYV&autoplay=1&mute=1&loop=1&playlist=gX-SQe1FIo8&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1" 
                 title="YouTube video player" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 referrerpolicy="strict-origin-when-cross-origin" 
                 allowfullscreen
-                style="object-fit: cover; pointer-events: none;">
+                style="object-fit: cover; pointer-events: none;"
+                id="backgroundVideo">
             </iframe>
         </div>
     </div>
@@ -349,8 +392,7 @@
         <main>
             <div class="content">
                 <div class="language-es">
-                    <h1>Pisando el Césped</h1>
-                    <h2>El Sonido de un Hemisferio</h2>
+                    <h1>El Sonido de un Hemisferio</h1>
                     <p>Pisando el Césped es más que una banda; es una convergencia musical de las Américas y más allá. Fundada por un maestro inmigrante cubano, la esencia misma de la banda se construye sobre un viaje de expresión. Lo que comenzó con su travesía en busca de una nueva vida ahora encuentra su voz en el lenguaje universal de la música.</p>
                     <p>Un maestro del metal, percusionista y bajista, con experiencia como profesor de música en Cuba y Colombia, lidera este conjunto con un arte profundo.</p>
                     
@@ -404,7 +446,7 @@
                         </a>
                     </div>
                     
-                    <p>Juntos, fusionan sus poderes para crear un electrizante funk afrocubano que es a la vez eterno y fresco, un testimonio de su creencia compartida de que las fronteras no existen en la pista de baile.</p>
+                    <!-- REMOVED THE "Juntos..." PARAGRAPH -->
                     
                     <div class="cta-buttons">
                         <a href="#" class="btn btn-primary">
@@ -420,8 +462,7 @@
                 </div>
                 
                 <div class="language-en">
-                    <h1>Pisando el Cesped</h1>
-                    <h2>The Sound of a Hemisphere</h2>
+                    <h1>The Sound of a Hemisphere</h1>
                     <p>Pisando el Cesped is more than a band; it's a musical convergence of the Americas and beyond. Founded by a Cuban immigrant maestro, the band's very essence is built on a journey of expression. What began with his crossing to seek a new life now finds its voice in the universal language of music.</p>
                     <p>A master brass player, percussionist, and bassist, with a background as a music professor in Cuba and Colombia, he leads this ensemble with profound artistry.</p>
                     
@@ -475,7 +516,7 @@
                         </a>
                     </div>
                     
-                    <p>Together, they fuse their powers to create electrifying Afro-Cuban funk that is both timeless and fresh, a testament to their shared belief that borders do not exist on the dance floor.</p>
+                    <!-- REMOVED THE "Together..." PARAGRAPH -->
                     
                     <div class="cta-buttons">
                         <a href="#" class="btn btn-primary">
@@ -511,7 +552,10 @@
             const englishContent = document.querySelector('.language-en');
             const spanishContent = document.querySelector('.language-es');
             const toggleText = languageToggle.querySelector('span');
-            
+            const soundToggle = document.getElementById('soundToggle');
+            let player;
+            let isMuted = true;
+
             // Set initial language to Spanish
             let currentLanguage = 'es';
             
@@ -530,6 +574,33 @@
                     currentLanguage = 'es';
                 }
             });
+
+            // Sound toggle functionality
+            soundToggle.addEventListener('click', function() {
+                const iframe = document.getElementById('backgroundVideo');
+                const videoUrl = iframe.src;
+                
+                if (isMuted) {
+                    // Unmute - remove mute parameter
+                    iframe.src = videoUrl.replace('&mute=1', '') + '&mute=0';
+                    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    soundToggle.classList.remove('muted');
+                } else {
+                    // Mute - add mute parameter
+                    iframe.src = videoUrl.replace('&mute=0', '') + '&mute=1';
+                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    soundToggle.classList.add('muted');
+                }
+                isMuted = !isMuted;
+            });
+
+            // Try to autoplay with sound (may not work in all browsers)
+            setTimeout(() => {
+                const iframe = document.getElementById('backgroundVideo');
+                const currentSrc = iframe.src;
+                // Try to unmute after a short delay
+                iframe.src = currentSrc.replace('&mute=1', '') + '&mute=0';
+            }, 1000);
         });
     </script>
 </body>
