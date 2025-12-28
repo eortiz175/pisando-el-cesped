@@ -581,12 +581,12 @@
             
             <!-- Spanish Version -->
             <div class="tagline language-es">
-                Pisando el Cesped es mas que una banda; es una convergencia musical de las Americas y mas alla!
+                Somos mas que una banda; somos una convergencia musical de las Americas y mas alla!
             </div>
             
             <!-- English Version -->
             <div class="tagline language-en" style="display: none;">
-                Pisando el Cesped is more than a band; it is a musical convergence of the Americas and beyond!
+                We are more than a band; we are a musical convergence of the Americas and beyond!
             </div>
         </header>
 
@@ -646,22 +646,23 @@
                 <h2 class="section-title language-es">Conecta con Nosotros</h2>
                 <h2 class="section-title language-en" style="display: none;">Connect With Us</h2>
                 <div class="cta-buttons">
+                    <!-- Spanish Buttons -->
                     <a href="#" class="cta-btn primary language-es">
                         <i class="fas fa-play-circle"></i> Escuchar Ahora
                     </a>
-                    <a href="#" class="cta-btn primary language-en" style="display: none;">
-                        <i class="fas fa-play-circle"></i> Listen Now
-                    </a>
-                    
                     <a href="#" class="cta-btn secondary language-es">
                         <i class="fas fa-calendar-alt"></i> Próximos Conciertos
                     </a>
-                    <a href="#" class="cta-btn secondary language-en" style="display: none;">
-                        <i class="fas fa-calendar-alt"></i> Upcoming Shows
-                    </a>
-                    
                     <a href="#" class="cta-btn secondary language-es">
                         <i class="fas fa-envelope"></i> Contactanos
+                    </a>
+                    
+                    <!-- English Buttons -->
+                    <a href="#" class="cta-btn primary language-en" style="display: none;">
+                        <i class="fas fa-play-circle"></i> Listen Now
+                    </a>
+                    <a href="#" class="cta-btn secondary language-en" style="display: none;">
+                        <i class="fas fa-calendar-alt"></i> Upcoming Shows
                     </a>
                     <a href="#" class="cta-btn secondary language-en" style="display: none;">
                         <i class="fas fa-envelope"></i> Contact Us
@@ -671,8 +672,10 @@
         </main>
 
         <footer>
+            <!-- Spanish Footer -->
             <div class="follow-text language-es">Sigue a Pisando el Cesped</div>
             <div class="follow-text language-en" style="display: none;">Follow Pisando el Cesped</div>
+            
             <div class="social-links">
                 <a href="#" class="social-icon">
                     <i class="fab fa-spotify"></i>
@@ -693,6 +696,7 @@
                     <i class="fab fa-twitter"></i>
                 </a>
             </div>
+            
             <div class="copyright language-es">
                 © 2023 Pisando el Cesped. Todos los derechos reservados.
             </div>
@@ -827,13 +831,37 @@
             
             if (toggleText.textContent === 'English') {
                 // Switch to English
-                spanishElements.forEach(el => el.style.display = 'none');
-                englishElements.forEach(el => el.style.display = '');
+                spanishElements.forEach(el => {
+                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
+                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
+                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
+                        el.style.display = 'none';
+                    }
+                });
+                englishElements.forEach(el => {
+                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
+                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
+                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
+                        el.style.display = '';
+                    }
+                });
                 toggleText.textContent = 'Español';
             } else {
                 // Switch to Spanish
-                englishElements.forEach(el => el.style.display = 'none');
-                spanishElements.forEach(el => el.style.display = '');
+                englishElements.forEach(el => {
+                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
+                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
+                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
+                        el.style.display = 'none';
+                    }
+                });
+                spanishElements.forEach(el => {
+                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
+                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
+                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
+                        el.style.display = '';
+                    }
+                });
                 toggleText.textContent = 'English';
             }
         }
@@ -864,7 +892,12 @@
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    alert('Band member click - Add photo here');
+                    const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
+                    if (currentLang === 'Español') {
+                        alert('Click en miembro de la banda - Agregar foto aquí');
+                    } else {
+                        alert('Band member click - Add photo here');
+                    }
                 });
             });
 
@@ -873,8 +906,14 @@
             ctaButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
+                    const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
                     const action = this.textContent.trim();
-                    alert(`Action: ${action}. This functionality will be implemented soon.`);
+                    
+                    if (currentLang === 'Español') {
+                        alert(`Acción: ${action}. Esta funcionalidad se implementará próximamente.`);
+                    } else {
+                        alert(`Action: ${action}. This functionality will be implemented soon.`);
+                    }
                 });
             });
 
