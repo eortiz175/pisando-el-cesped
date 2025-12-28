@@ -20,6 +20,7 @@
             color: white;
             overflow-x: hidden;
             background-color: #000;
+            font-size: 15px;
         }
 
         /* YouTube Background Video */
@@ -61,20 +62,20 @@
         /* Sound Toggle */
         .sound-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: rgba(198, 40, 40, 0.8);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
@@ -87,7 +88,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -95,33 +96,34 @@
 
         header {
             text-align: center;
-            padding: 3rem 0 2rem;
+            padding: 1.5rem 0 1.5rem;
         }
 
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: #fff;
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            justify-content: center;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            letter-spacing: 1px;
         }
 
-        .main-title span {
-            color: #c62828;
+        .band-logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.7));
         }
 
         /* Tagline - No black box */
         .tagline {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 400;
             color: #fff;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             line-height: 1.4;
-            max-width: 800px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             padding: 0 1rem;
@@ -132,18 +134,18 @@
         .content-section {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
+            border-radius: 15px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: #fff;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             position: relative;
         }
@@ -151,10 +153,10 @@
         .section-title:after {
             content: '';
             position: absolute;
-            width: 80px;
+            width: 60px;
             height: 3px;
             background: #c62828;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -162,15 +164,15 @@
         /* Band Members */
         .band-members {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.2rem;
         }
 
         .member-card {
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            padding: 1.2rem 0.8rem;
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -178,49 +180,49 @@
         }
 
         .member-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             background: rgba(198, 40, 40, 0.15);
             border-color: #c62828;
         }
 
         .member-icon {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #c62828;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .member-placeholder {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
         }
 
         /* CTA Buttons */
         .cta-section {
             text-align: center;
-            padding: 2rem 0;
+            padding: 1.5rem 0;
         }
 
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
         }
 
         .cta-btn {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            min-width: 200px;
+            min-width: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
         }
 
@@ -250,35 +252,35 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 0 2rem;
-            margin-top: 2rem;
+            padding: 2rem 0 1.5rem;
+            margin-top: 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .follow-text {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #fff;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .social-icon {
-            width: 50px;
-            height: 50px;
+            width: 42px;
+            height: 42px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -290,29 +292,33 @@
 
         .copyright {
             color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            margin-top: 1.2rem;
         }
 
-        /* Play Overlay - Now shows on ALL devices */
+        /* Play Overlay - Only shows if autoplay fails */
         .play-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
         }
 
-        .play-overlay.hidden {
-            display: none;
+        .play-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
 
         .play-button {
@@ -320,11 +326,11 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            font-size: 2rem;
+            width: 70px;
+            height: 70px;
+            font-size: 1.8rem;
             cursor: pointer;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -336,67 +342,39 @@
             transform: scale(1.1);
         }
 
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .language-en {
+            display: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
-            .main-title {
-                font-size: 3.5rem;
-            }
-            
-            .tagline {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .band-members {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 1.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-            }
-            
-            .main-title {
-                font-size: 2.8rem;
-            }
-            
-            .tagline {
-                font-size: 1.5rem;
-                margin-bottom: 2rem;
-            }
-            
-            .content-section {
-                padding: 1.5rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .cta-btn {
-                min-width: 250px;
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .band-members {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2.2rem;
+            .band-logo {
+                max-width: 320px;
             }
             
             .tagline {
@@ -408,37 +386,161 @@
             }
             
             .band-members {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
                 gap: 1rem;
             }
             
+            .member-card {
+                padding: 1rem 0.6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 1rem 0 1rem;
+            }
+            
+            .band-logo {
+                max-width: 280px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+                padding: 0 0.5rem;
+            }
+            
+            .content-section {
+                padding: 1.2rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .cta-btn {
+                min-width: 220px;
+                width: 100%;
+                max-width: 280px;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .band-members {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .follow-text {
+                font-size: 1.3rem;
+            }
+            
             .sound-toggle {
-                top: 15px;
-                right: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+                top: 12px;
+                right: 12px;
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            
+            .language-toggle {
+                top: 12px;
+                left: 12px;
+                padding: 0.3rem 0.7rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .band-logo {
+                max-width: 220px;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .band-members {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .member-card {
+                padding: 1rem 0.5rem;
+            }
+            
+            .member-icon {
+                font-size: 1.8rem;
             }
             
             .social-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+            
+            .follow-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .band-logo {
+                max-width: 180px;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .cta-btn {
+                min-width: 200px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Play Overlay - Shows for ALL users initially -->
+    <!-- Play Overlay - Only shows if autoplay fails -->
     <div class="play-overlay" id="playOverlay">
         <button class="play-button" id="playButton">
             <i class="fas fa-play"></i>
         </button>
-        <p style="font-size: 1.2rem; color: white; max-width: 300px;">Click to start the music experience</p>
-        <p style="font-size: 0.9rem; color: #ccc; margin-top: 1rem; max-width: 400px;">
-            Browser requires user interaction to play music. Click the play button to begin.
+        <p style="font-size: 1.1rem; color: white; max-width: 300px; margin-bottom: 0.5rem;">
+            Click to start the music experience
+        </p>
+        <p style="font-size: 0.85rem; color: #ccc; max-width: 350px;">
+            Browser requires user interaction to play music
         </p>
     </div>
+
+    <!-- Language Toggle -->
+    <button class="language-toggle" id="languageToggle">
+        <i class="fas fa-language"></i>
+        <span>English</span>
+    </button>
 
     <!-- Sound Toggle Button -->
     <button class="sound-toggle" id="soundToggle" title="Toggle sound">
@@ -453,75 +555,106 @@
 
     <div class="container">
         <header>
-            <h1 class="main-title">Pisando el <span>Cesped</span></h1>
-            <div class="tagline">
+            <!-- Logo Container -->
+            <div class="logo-container">
+                <!-- REPLACE THIS URL WITH YOUR GOOGLE DRIVE LOGO URL -->
+                <img src="https://drive.google.com/file/d/1O4gzsUWrE7sY3HxcgHsz-d0WGP6s1xOZ/view?usp=sharing" alt="Pisando el Cesped Logo" class="band-logo" id="bandLogo">
+            </div>
+            
+            <!-- Spanish Version -->
+            <div class="tagline language-es">
                 Pisando el Cesped es mas que una banda; es una convergencia musical de las Americas y mas alla!
+            </div>
+            
+            <!-- English Version -->
+            <div class="tagline language-en" style="display: none;">
+                Pisando el Cesped is more than a band; it is a musical convergence of the Americas and beyond!
             </div>
         </header>
 
         <main>
             <!-- Band Members Section -->
             <section class="content-section">
-                <h2 class="section-title">Conoce a la Banda</h2>
+                <h2 class="section-title language-es">Conoce a la Banda</h2>
+                <h2 class="section-title language-en" style="display: none;">Meet the Band</h2>
                 <div class="band-members">
                     <div class="member-card">
                         <div class="member-icon">
                             <i class="fas fa-music"></i>
                         </div>
-                        <div class="member-placeholder">Agregar Foto</div>
+                        <div class="member-placeholder language-es">Agregar Foto</div>
+                        <div class="member-placeholder language-en" style="display: none;">Add Photo</div>
                     </div>
                     <div class="member-card">
                         <div class="member-icon">
                             <i class="fas fa-drum"></i>
                         </div>
-                        <div class="member-placeholder">Agregar Foto</div>
+                        <div class="member-placeholder language-es">Agregar Foto</div>
+                        <div class="member-placeholder language-en" style="display: none;">Add Photo</div>
                     </div>
                     <div class="member-card">
                         <div class="member-icon">
                             <i class="fas fa-guitar"></i>
                         </div>
-                        <div class="member-placeholder">Agregar Foto</div>
+                        <div class="member-placeholder language-es">Agregar Foto</div>
+                        <div class="member-placeholder language-en" style="display: none;">Add Photo</div>
                     </div>
                     <div class="member-card">
                         <div class="member-icon">
                             <i class="fas fa-trumpet"></i>
                         </div>
-                        <div class="member-placeholder">Agregar Foto</div>
+                        <div class="member-placeholder language-es">Agregar Foto</div>
+                        <div class="member-placeholder language-en" style="display: none;">Add Photo</div>
                     </div>
                     <div class="member-card">
                         <div class="member-icon">
                             <i class="fas fa-keyboard"></i>
                         </div>
-                        <div class="member-placeholder">Agregar Foto</div>
+                        <div class="member-placeholder language-es">Agregar Foto</div>
+                        <div class="member-placeholder language-en" style="display: none;">Add Photo</div>
                     </div>
                     <div class="member-card">
                         <div class="member-icon">
                             <i class="fas fa-microphone"></i>
                         </div>
-                        <div class="member-placeholder">Agregar Foto</div>
+                        <div class="member-placeholder language-es">Agregar Foto</div>
+                        <div class="member-placeholder language-en" style="display: none;">Add Photo</div>
                     </div>
                 </div>
             </section>
 
             <!-- CTA Section -->
             <section class="cta-section">
-                <h2 class="section-title">Conecta con Nosotros</h2>
+                <h2 class="section-title language-es">Conecta con Nosotros</h2>
+                <h2 class="section-title language-en" style="display: none;">Connect With Us</h2>
                 <div class="cta-buttons">
-                    <a href="#" class="cta-btn primary">
+                    <a href="#" class="cta-btn primary language-es">
                         <i class="fas fa-play-circle"></i> Escuchar Ahora
                     </a>
-                    <a href="#" class="cta-btn secondary">
+                    <a href="#" class="cta-btn primary language-en" style="display: none;">
+                        <i class="fas fa-play-circle"></i> Listen Now
+                    </a>
+                    
+                    <a href="#" class="cta-btn secondary language-es">
                         <i class="fas fa-calendar-alt"></i> Próximos Conciertos
                     </a>
-                    <a href="#" class="cta-btn secondary">
+                    <a href="#" class="cta-btn secondary language-en" style="display: none;">
+                        <i class="fas fa-calendar-alt"></i> Upcoming Shows
+                    </a>
+                    
+                    <a href="#" class="cta-btn secondary language-es">
                         <i class="fas fa-envelope"></i> Contactanos
+                    </a>
+                    <a href="#" class="cta-btn secondary language-en" style="display: none;">
+                        <i class="fas fa-envelope"></i> Contact Us
                     </a>
                 </div>
             </section>
         </main>
 
         <footer>
-            <div class="follow-text">Sigue a Pisando el Cesped</div>
+            <div class="follow-text language-es">Sigue a Pisando el Cesped</div>
+            <div class="follow-text language-en" style="display: none;">Follow Pisando el Cesped</div>
             <div class="social-links">
                 <a href="#" class="social-icon">
                     <i class="fab fa-spotify"></i>
@@ -542,8 +675,11 @@
                     <i class="fab fa-twitter"></i>
                 </a>
             </div>
-            <div class="copyright">
+            <div class="copyright language-es">
                 © 2023 Pisando el Cesped. Todos los derechos reservados.
+            </div>
+            <div class="copyright language-en" style="display: none;">
+                © 2023 Pisando el Cesped. All rights reserved.
             </div>
         </footer>
     </div>
@@ -553,15 +689,16 @@
     <script>
         let player;
         let isMuted = true;
-        const START_TIME = 80; // 1 minute 20 seconds = 80 seconds
-        let hasUserInteracted = false;
+        const START_TIME = 80;
+        let autoplayAttempted = false;
+        let autoplaySuccessful = false;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtubeBackground', {
-                videoId: 'gX-SQe1FIo8', // Funky Afro-Cuban music video
+                videoId: 'gX-SQe1FIo8',
                 playerVars: {
-                    'autoplay': 0, // Start with NO autoplay
-                    'mute': 1, // Start muted
+                    'autoplay': 1,
+                    'mute': 0,
                     'loop': 1,
                     'playlist': 'gX-SQe1FIo8',
                     'controls': 0,
@@ -579,41 +716,65 @@
         }
 
         function onPlayerReady(event) {
-            console.log("YouTube player is ready");
-            // Don't autoplay - wait for user interaction
-            updateSoundButton();
+            console.log("YouTube player ready, attempting autoplay...");
+            autoplayAttempted = true;
+            
+            try {
+                event.target.seekTo(START_TIME, true);
+                event.target.playVideo();
+                isMuted = false;
+                updateSoundButton();
+                
+                setTimeout(checkAutoplayStatus, 1000);
+                
+            } catch (error) {
+                console.log("Autoplay attempt failed:", error);
+                showPlayOverlay();
+            }
         }
 
         function onPlayerStateChange(event) {
-            // When video ends, restart from the specified time
+            if (event.data === YT.PlayerState.PLAYING && !autoplaySuccessful) {
+                autoplaySuccessful = true;
+                console.log("Autoplay successful!");
+                
+                setTimeout(() => {
+                    document.getElementById('playOverlay').classList.remove('active');
+                }, 500);
+            }
+            
             if (event.data === YT.PlayerState.ENDED) {
                 player.seekTo(START_TIME, true);
                 player.playVideo();
             }
         }
 
+        function checkAutoplayStatus() {
+            if (player && player.getPlayerState() !== YT.PlayerState.PLAYING && !autoplaySuccessful) {
+                console.log("Autoplay appears to have been blocked");
+                showPlayOverlay();
+            }
+        }
+
+        function showPlayOverlay() {
+            document.getElementById('playOverlay').classList.add('active');
+        }
+
         function startVideo() {
-            if (player && !hasUserInteracted) {
-                hasUserInteracted = true;
+            if (player) {
+                document.getElementById('playOverlay').classList.remove('active');
                 
-                // Hide the play overlay
-                document.getElementById('playOverlay').classList.add('hidden');
-                
-                // Start the video
                 player.seekTo(START_TIME, true);
                 player.playVideo();
                 
-                // Try to unmute after a short delay
-                setTimeout(() => {
-                    try {
-                        player.unMute();
-                        player.setVolume(100);
-                        isMuted = false;
-                        updateSoundButton();
-                    } catch (e) {
-                        console.log("Could not unmute automatically");
-                    }
-                }, 500);
+                try {
+                    player.unMute();
+                    player.setVolume(100);
+                    isMuted = false;
+                    updateSoundButton();
+                } catch (error) {
+                    console.log("Could not unmute:", error);
+                }
             }
         }
 
@@ -629,12 +790,10 @@
         function toggleSound() {
             if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
                 if (isMuted) {
-                    // Unmute
                     player.unMute();
                     player.setVolume(100);
                     isMuted = false;
                 } else {
-                    // Mute
                     player.mute();
                     isMuted = true;
                 }
@@ -642,44 +801,68 @@
             }
         }
 
+        function toggleLanguage() {
+            const languageToggle = document.getElementById('languageToggle');
+            const toggleText = languageToggle.querySelector('span');
+            const spanishElements = document.querySelectorAll('.language-es');
+            const englishElements = document.querySelectorAll('.language-en');
+            
+            if (toggleText.textContent === 'English') {
+                // Switch to English
+                spanishElements.forEach(el => el.style.display = 'none');
+                englishElements.forEach(el => el.style.display = '');
+                toggleText.textContent = 'Español';
+            } else {
+                // Switch to Spanish
+                englishElements.forEach(el => el.style.display = 'none');
+                spanishElements.forEach(el => el.style.display = '');
+                toggleText.textContent = 'English';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const playButton = document.getElementById('playButton');
             const soundToggle = document.getElementById('soundToggle');
+            const playOverlay = document.getElementById('playOverlay');
+            const languageToggle = document.getElementById('languageToggle');
 
             // Play button functionality
             playButton.addEventListener('click', startVideo);
             
-            // Also allow clicking anywhere on the overlay to start
-            document.getElementById('playOverlay').addEventListener('click', function(e) {
+            // Click overlay to start
+            playOverlay.addEventListener('click', function(e) {
                 if (e.target === this) {
                     startVideo();
                 }
             });
 
-            // Sound toggle functionality
+            // Sound toggle
             soundToggle.addEventListener('click', toggleSound);
 
-            // Add hover effect to member cards
+            // Language toggle
+            languageToggle.addEventListener('click', toggleLanguage);
+
+            // Member cards interaction
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    alert('Click en miembro de la banda - Agregar foto aquí');
+                    alert('Band member click - Add photo here');
                 });
             });
 
-            // Add interactivity to CTA buttons
+            // CTA buttons interaction
             const ctaButtons = document.querySelectorAll('.cta-btn');
             ctaButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
                     const action = this.textContent.trim();
-                    alert(`Acción: ${action}. Esta funcionalidad se implementará próximamente.`);
+                    alert(`Action: ${action}. This functionality will be implemented soon.`);
                 });
             });
 
-            // Try to start video on any user interaction with the page
+            // Try to start video on any user interaction if autoplay failed
             document.addEventListener('click', function() {
-                if (!hasUserInteracted) {
+                if (!autoplaySuccessful && autoplayAttempted) {
                     startVideo();
                 }
             });
