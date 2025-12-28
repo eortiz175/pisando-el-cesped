@@ -747,6 +747,7 @@
                 isMuted = false;
                 updateSoundButton();
                 
+                // Check after 1 second if autoplay succeeded
                 setTimeout(checkAutoplayStatus, 1000);
                 
             } catch (error) {
@@ -756,15 +757,20 @@
         }
 
         function onPlayerStateChange(event) {
+            console.log("Player state changed:", event.data);
+            
+            // If video starts playing, autoplay succeeded
             if (event.data === YT.PlayerState.PLAYING && !autoplaySuccessful) {
                 autoplaySuccessful = true;
                 console.log("Autoplay successful!");
                 
+                // Hide play overlay if it's visible
                 setTimeout(() => {
                     document.getElementById('playOverlay').classList.remove('active');
                 }, 500);
             }
             
+            // When video ends, restart
             if (event.data === YT.PlayerState.ENDED) {
                 player.seekTo(START_TIME, true);
                 player.playVideo();
@@ -784,11 +790,14 @@
 
         function startVideo() {
             if (player) {
+                // Hide play overlay
                 document.getElementById('playOverlay').classList.remove('active');
                 
+                // Start playing
                 player.seekTo(START_TIME, true);
                 player.playVideo();
                 
+                // Try to unmute
                 try {
                     player.unMute();
                     player.setVolume(100);
@@ -812,10 +821,12 @@
         function toggleSound() {
             if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
                 if (isMuted) {
+                    // Unmute
                     player.unMute();
                     player.setVolume(100);
                     isMuted = false;
                 } else {
+                    // Mute
                     player.mute();
                     isMuted = true;
                 }
@@ -826,43 +837,37 @@
         function toggleLanguage() {
             const languageToggle = document.getElementById('languageToggle');
             const toggleText = languageToggle.querySelector('span');
+            
+            // Get all Spanish and English elements
             const spanishElements = document.querySelectorAll('.language-es');
             const englishElements = document.querySelectorAll('.language-en');
             
             if (toggleText.textContent === 'English') {
                 // Switch to English
-                spanishElements.forEach(el => {
-                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
-                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
-                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
-                        el.style.display = 'none';
-                    }
-                });
-                englishElements.forEach(el => {
-                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
-                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
-                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
-                        el.style.display = '';
-                    }
-                });
                 toggleText.textContent = 'Español';
+                
+                // Hide all Spanish elements
+                spanishElements.forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Show all English elements
+                englishElements.forEach(el => {
+                    el.style.display = '';
+                });
             } else {
                 // Switch to Spanish
-                englishElements.forEach(el => {
-                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
-                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
-                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
-                        el.style.display = 'none';
-                    }
-                });
-                spanishElements.forEach(el => {
-                    if (el.classList.contains('tagline') || el.classList.contains('section-title') || 
-                        el.classList.contains('member-placeholder') || el.classList.contains('follow-text') || 
-                        el.classList.contains('copyright') || el.classList.contains('cta-btn')) {
-                        el.style.display = '';
-                    }
-                });
                 toggleText.textContent = 'English';
+                
+                // Hide all English elements
+                englishElements.forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Show all Spanish elements
+                spanishElements.forEach(el => {
+                    el.style.display = '';
+                });
             }
         }
 
@@ -885,7 +890,7 @@
             // Sound toggle
             soundToggle.addEventListener('click', toggleSound);
 
-            // Language toggle
+            // Language toggle - SIMPLIFIED
             languageToggle.addEventListener('click', toggleLanguage);
 
             // Member cards interaction
@@ -923,6 +928,13 @@
                     startVideo();
                 }
             });
+
+            // Also try autoplay after page loads
+            setTimeout(() => {
+                if (!autoplaySuccessful && autoplayAttempted) {
+                    startVideo();
+                }
+            }, 2000);
         });
     </script>
 </body>
