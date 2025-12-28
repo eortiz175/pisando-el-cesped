@@ -294,8 +294,8 @@
             margin-top: 1.5rem;
         }
 
-        /* Mobile Play Overlay */
-        .mobile-play-overlay {
+        /* Play Overlay - Now shows on ALL devices */
+        .play-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -311,7 +311,7 @@
             padding: 2rem;
         }
 
-        .mobile-play-overlay.hidden {
+        .play-overlay.hidden {
             display: none;
         }
 
@@ -429,12 +429,15 @@
     </style>
 </head>
 <body>
-    <!-- Mobile Play Overlay -->
-    <div class="mobile-play-overlay hidden" id="mobilePlayOverlay">
-        <button class="play-button" id="mobilePlayButton">
+    <!-- Play Overlay - Shows for ALL users initially -->
+    <div class="play-overlay" id="playOverlay">
+        <button class="play-button" id="playButton">
             <i class="fas fa-play"></i>
         </button>
-        <p style="font-size: 1.2rem; color: white; max-width: 300px;">Tap to play background music</p>
+        <p style="font-size: 1.2rem; color: white; max-width: 300px;">Click to start the music experience</p>
+        <p style="font-size: 0.9rem; color: #ccc; margin-top: 1rem; max-width: 400px;">
+            Browser requires user interaction to play music. Click the play button to begin.
+        </p>
     </div>
 
     <!-- Sound Toggle Button -->
@@ -551,21 +554,14 @@
         let player;
         let isMuted = true;
         const START_TIME = 80; // 1 minute 20 seconds = 80 seconds
-        
-        // Mobile detection
-        function isMobileDevice() {
-            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || 
-                   (window.innerWidth <= 768 && window.innerHeight <= 1024);
-        }
-        
-        let isMobile = isMobileDevice();
+        let hasUserInteracted = false;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtubeBackground', {
                 videoId: 'gX-SQe1FIo8', // Funky Afro-Cuban music video
                 playerVars: {
-                    'autoplay': isMobile ? 0 : 1,
-                    'mute': isMobile ? 0 : 1,
+                    'autoplay': 0, // Start with NO autoplay
+                    'mute': 1, // Start muted
                     'loop': 1,
                     'playlist': 'gX-SQe1FIo8',
                     'controls': 0,
@@ -583,16 +579,8 @@
         }
 
         function onPlayerReady(event) {
-            if (!isMobile) {
-                // Desktop: seek to start time and play (muted)
-                event.target.seekTo(START_TIME, true);
-                event.target.playVideo();
-                isMuted = true;
-            } else {
-                // Mobile: show play overlay
-                document.getElementById('mobilePlayOverlay').classList.remove('hidden');
-                isMuted = false;
-            }
+            console.log("YouTube player is ready");
+            // Don't autoplay - wait for user interaction
             updateSoundButton();
         }
 
@@ -604,18 +592,28 @@
             }
         }
 
-        function startVideoOnMobile() {
-            if (player && isMobile) {
+        function startVideo() {
+            if (player && !hasUserInteracted) {
+                hasUserInteracted = true;
+                
                 // Hide the play overlay
-                document.getElementById('mobilePlayOverlay').classList.add('hidden');
+                document.getElementById('playOverlay').classList.add('hidden');
+                
                 // Start the video
                 player.seekTo(START_TIME, true);
                 player.playVideo();
-                // Mobile starts unmuted
-                player.unMute();
-                player.setVolume(100);
-                isMuted = false;
-                updateSoundButton();
+                
+                // Try to unmute after a short delay
+                setTimeout(() => {
+                    try {
+                        player.unMute();
+                        player.setVolume(100);
+                        isMuted = false;
+                        updateSoundButton();
+                    } catch (e) {
+                        console.log("Could not unmute automatically");
+                    }
+                }, 500);
             }
         }
 
@@ -644,36 +642,22 @@
             }
         }
 
-        // Try to autoplay with sound on desktop
-        function tryAutoplayWithSound() {
-            if (player && !isMobile) {
-                setTimeout(() => {
-                    try {
-                        player.unMute();
-                        player.setVolume(100);
-                        isMuted = false;
-                        updateSoundButton();
-                    } catch (e) {
-                        console.log("Autoplay with sound blocked by browser");
-                    }
-                }, 1000);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
+            const playButton = document.getElementById('playButton');
             const soundToggle = document.getElementById('soundToggle');
-            const mobilePlayButton = document.getElementById('mobilePlayButton');
+
+            // Play button functionality
+            playButton.addEventListener('click', startVideo);
+            
+            // Also allow clicking anywhere on the overlay to start
+            document.getElementById('playOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    startVideo();
+                }
+            });
 
             // Sound toggle functionality
             soundToggle.addEventListener('click', toggleSound);
-
-            // Mobile play button functionality
-            mobilePlayButton.addEventListener('click', startVideoOnMobile);
-
-            // Try to autoplay with sound on desktop
-            if (!isMobile) {
-                setTimeout(tryAutoplayWithSound, 1000);
-            }
 
             // Add hover effect to member cards
             const memberCards = document.querySelectorAll('.member-card');
@@ -691,6 +675,13 @@
                     const action = this.textContent.trim();
                     alert(`Acción: ${action}. Esta funcionalidad se implementará próximamente.`);
                 });
+            });
+
+            // Try to start video on any user interaction with the page
+            document.addEventListener('click', function() {
+                if (!hasUserInteracted) {
+                    startVideo();
+                }
             });
         });
     </script>
