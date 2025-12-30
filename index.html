@@ -920,45 +920,57 @@
             }
         }
 
-        function toggleLanguage() {
-            const languageToggle = document.getElementById('languageToggle');
-            const toggleText = languageToggle.querySelector('span');
+// FIXED LANGUAGE TOGGLE FUNCTION
+function toggleLanguage() {
+    const languageToggle = document.getElementById('languageToggle');
+    const toggleText = languageToggle.querySelector('span');
+    
+    // Get all elements with language classes
+    const spanishElements = document.querySelectorAll('.language-es');
+    const englishElements = document.querySelectorAll('.language-en');
+    
+    if (toggleText.textContent === 'English') {
+        // Switching TO English
+        toggleText.textContent = 'Español';
+        
+        // Hide all Spanish elements
+        spanishElements.forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Show all English elements
+        englishElements.forEach(el => {
+            el.style.display = '';
             
-            // Get all Spanish and English elements
-            const spanishElements = document.querySelectorAll('.language-es');
-            const englishElements = document.querySelectorAll('.language-en');
-            
-            if (toggleText.textContent === 'English') {
-                // Switch to English
-                toggleText.textContent = 'Español';
-                
-                // Hide all Spanish elements
-                spanishElements.forEach(el => {
-                    el.style.display = 'none';
-                });
-                
-                // Show all English elements
-                englishElements.forEach(el => {
-                    el.style.display = '';
-                });
-            } else {
-                // Switch to Spanish
-                toggleText.textContent = 'English';
-                
-                // Hide all English elements
-                englishElements.forEach(el => {
-                    el.style.display = 'none';
-                });
-                
-                // Show all Spanish elements
-                spanishElements.forEach(el => {
-                    el.style.display = '';
-                });
+            // Special handling for buttons to maintain flex display
+            if (el.classList.contains('cta-btn')) {
+                el.style.display = 'flex';
             }
+        });
+        
+    } else {
+        // Switching TO Spanish
+        toggleText.textContent = 'English';
+        
+        // Hide all English elements
+        englishElements.forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Show all Spanish elements
+        spanishElements.forEach(el => {
+            el.style.display = '';
             
-            // Update member names after language change
-            setMemberNames();
-        }
+            // Special handling for buttons to maintain flex display
+            if (el.classList.contains('cta-btn')) {
+                el.style.display = 'flex';
+            }
+        });
+    }
+    
+    // Update member names after language change
+    setMemberNames();
+}
 
         // ============================================
         // GITHUB CONFIGURATION - UPDATE THESE VALUES!
