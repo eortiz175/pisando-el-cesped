@@ -99,7 +99,7 @@
             padding: 1.5rem 0 1.5rem;
         }
 
-        /* Logo Styling - KEEPING IMPROVED VERSION */
+        /* Logo Styling - MADE SMALLER */
         .logo-container {
             display: flex;
             justify-content: center;
@@ -107,7 +107,8 @@
         }
 
         .band-logo {
-            max-width: 400px;
+            /* Made slightly smaller */
+            max-width: 350px;
             width: 100%;
             height: auto;
             object-fit: contain;
@@ -196,7 +197,7 @@
             overflow: hidden;
             border: 3px solid rgba(255, 255, 255, 0.3);
             background: rgba(255, 255, 255, 0.1);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -221,21 +222,18 @@
             color: rgba(255, 255, 255, 0.3);
         }
 
-        .member-placeholder {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-align: center;
-            margin-top: 0.3rem;
-        }
+        /* REMOVED member-placeholder styling since we're removing the text */
         
-        /* Member name styling */
+        /* Member name styling - UPDATED FOR BETTER READABILITY */
         .member-name {
             font-size: 1rem;
             font-weight: 500;
             color: #fff;
             text-align: center;
             margin-top: 0.5rem;
-            min-height: 1.5rem;
+            min-height: 2.5rem;
+            line-height: 1.3;
+            padding: 0 0.2rem;
         }
 
         /* CTA Buttons */
@@ -416,7 +414,7 @@
         /* Responsive Design */
         @media (max-width: 992px) {
             .band-logo {
-                max-width: 320px;
+                max-width: 300px;
                 border-width: 2.5px;
                 padding: 8px;
             }
@@ -437,6 +435,11 @@
             .member-card {
                 width: 130px;
             }
+            
+            .member-name {
+                font-size: 0.95rem;
+                min-height: 2.3rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -449,7 +452,7 @@
             }
             
             .band-logo {
-                max-width: 280px;
+                max-width: 250px;
                 border-width: 2px;
                 padding: 6px;
             }
@@ -501,6 +504,11 @@
                 font-size: 2.2rem;
             }
             
+            .member-name {
+                font-size: 0.9rem;
+                min-height: 2.2rem;
+            }
+            
             .follow-text {
                 font-size: 1.3rem;
             }
@@ -527,7 +535,7 @@
             }
             
             .band-logo {
-                max-width: 220px;
+                max-width: 200px;
                 border-width: 1.5px;
                 padding: 4px;
             }
@@ -557,6 +565,12 @@
                 font-size: 2rem;
             }
             
+            .member-name {
+                font-size: 0.85rem;
+                min-height: 2rem;
+                line-height: 1.2;
+            }
+            
             .social-icon {
                 width: 38px;
                 height: 38px;
@@ -570,7 +584,7 @@
 
         @media (max-width: 360px) {
             .band-logo {
-                max-width: 180px;
+                max-width: 160px;
                 border-width: 1px;
                 padding: 3px;
             }
@@ -594,6 +608,11 @@
             
             .member-card {
                 width: 90px;
+            }
+            
+            .member-name {
+                font-size: 0.8rem;
+                min-height: 1.8rem;
             }
         }
     </style>
@@ -659,11 +678,10 @@
                             <div class="member-icon">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <img src="" alt="Band Member 1" class="member-photo">
+                            <img src="" alt="Jorge 'Chino' Ramos" class="member-photo">
                         </div>
                         <div class="member-name" id="member1-name"></div>
-                        <div class="member-placeholder language-es">Agregar Foto</div>
-                        <div class="member-placeholder language-en">Add Photo</div>
+                        <!-- REMOVED "Agregar Foto" and "Add Photo" text -->
                     </div>
                     
                     <!-- Band Member 2 -->
@@ -672,11 +690,10 @@
                             <div class="member-icon">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <img src="" alt="Band Member 2" class="member-photo">
+                            <img src="" alt="Adrian Cardenas" class="member-photo">
                         </div>
                         <div class="member-name" id="member2-name"></div>
-                        <div class="member-placeholder language-es">Agregar Foto</div>
-                        <div class="member-placeholder language-en">Add Photo</div>
+                        <!-- REMOVED "Agregar Foto" and "Add Photo" text -->
                     </div>
                     
                     <!-- Band Member 3 -->
@@ -685,11 +702,10 @@
                             <div class="member-icon">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <img src="" alt="Band Member 3" class="member-photo">
+                            <img src="" alt="Noriko Mendez" class="member-photo">
                         </div>
                         <div class="member-name" id="member3-name"></div>
-                        <div class="member-placeholder language-es">Agregar Foto</div>
-                        <div class="member-placeholder language-en">Add Photo</div>
+                        <!-- REMOVED "Agregar Foto" and "Add Photo" text -->
                     </div>
                     
                     <!-- Band Member 4 -->
@@ -698,11 +714,10 @@
                             <div class="member-icon">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <img src="" alt="Band Member 4" class="member-photo">
+                            <img src="" alt="Carlos Caldero" class="member-photo">
                         </div>
                         <div class="member-name" id="member4-name"></div>
-                        <div class="member-placeholder language-es">Agregar Foto</div>
-                        <div class="member-placeholder language-en">Add Photo</div>
+                        <!-- REMOVED "Agregar Foto" and "Add Photo" text -->
                     </div>
                     
                     <!-- Band Member 5 -->
@@ -711,11 +726,10 @@
                             <div class="member-icon">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <img src="" alt="Band Member 5" class="member-photo">
+                            <img src="" alt="Emmanuel Ortiz" class="member-photo">
                         </div>
                         <div class="member-name" id="member5-name"></div>
-                        <div class="member-placeholder language-es">Agregar Foto</div>
-                        <div class="member-placeholder language-en">Add Photo</div>
+                        <!-- REMOVED "Agregar Foto" and "Add Photo" text -->
                     </div>
                 </div>
             </section>
@@ -973,28 +987,28 @@
             // ============================================
             // Photo filenames (add your actual photo filenames here)
             photos: {
-                member1: 'photo1.jpg',
-                member2: 'photo2.jpg',
-                member3: 'photo3.jpg',
-                member4: 'photo4.jpg',
-                member5: 'photo5.jpg'
+                member1: 'jorge-chino-ramos.jpg',
+                member2: 'adrian-cardenas.jpg',
+                member3: 'noriko-mendez.jpg',
+                member4: 'carlos-caldero.jpg',
+                member5: 'emmanuel-ortiz.jpg'
             },
             
-            // Band member names (Spanish and English)
+            // Band member names (Spanish and English) - UPDATED WITH ACTUAL NAMES
             names: {
                 spanish: {
-                    member1: 'Nombre 1',
-                    member2: 'Nombre 2',
-                    member3: 'Nombre 3',
-                    member4: 'Nombre 4',
-                    member5: 'Nombre 5'
+                    member1: 'Jorge "Chino" Ramos',
+                    member2: 'Adrian Cardenas',
+                    member3: 'Noriko Mendez',
+                    member4: 'Carlos Caldero',
+                    member5: 'Emmanuel Ortiz'
                 },
                 english: {
-                    member1: 'Name 1',
-                    member2: 'Name 2',
-                    member3: 'Name 3',
-                    member4: 'Name 4',
-                    member5: 'Name 5'
+                    member1: 'Jorge "Chino" Ramos',
+                    member2: 'Adrian Cardenas',
+                    member3: 'Noriko Mendez',
+                    member4: 'Carlos Caldero',
+                    member5: 'Emmanuel Ortiz'
                 }
             }
         };
@@ -1032,7 +1046,6 @@
                 const photoContainer = memberCard.querySelector('.member-photo-container');
                 const icon = memberCard.querySelector('.member-icon');
                 const photo = memberCard.querySelector('.member-photo');
-                const placeholder = memberCard.querySelectorAll('.member-placeholder');
                 
                 // Create image element
                 const img = new Image();
@@ -1041,14 +1054,12 @@
                     photo.src = photoUrl;
                     photo.style.display = 'block';
                     icon.style.display = 'none';
-                    placeholder.forEach(p => p.style.display = 'none');
                 };
                 img.onerror = function() {
                     // Photo failed to load
                     console.log(`Failed to load photo for ${memberId}: ${photoUrl}`);
                     photo.style.display = 'none';
                     icon.style.display = 'block';
-                    placeholder.forEach(p => p.style.display = 'block');
                 };
                 img.src = photoUrl;
             }
@@ -1107,18 +1118,19 @@
                     const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
                     const memberId = this.id;
                     const photoFilename = githubConfig.photos[memberId];
+                    const memberName = githubConfig.names.spanish[memberId];
                     
                     if (currentLang === 'Español') {
                         if (photoFilename) {
-                            alert(`Foto de ${githubConfig.names.spanish[memberId] || 'miembro'}\nArchivo: ${photoFilename}\nPara cambiar la foto, actualice la configuración en el código.`);
+                            alert(`${memberName}\nFoto: ${photoFilename}\nPara cambiar la foto, actualice la configuración en el código.`);
                         } else {
-                            alert('No hay foto configurada para este miembro.\nPara agregar una foto, actualice la configuración en el código.');
+                            alert(`${memberName}\nNo hay foto configurada.\nPara agregar una foto, actualice la configuración en el código.`);
                         }
                     } else {
                         if (photoFilename) {
-                            alert(`${githubConfig.names.english[memberId] || 'Member'} photo\nFile: ${photoFilename}\nTo change photo, update the configuration in the code.`);
+                            alert(`${memberName}\nPhoto: ${photoFilename}\nTo change photo, update the configuration in the code.`);
                         } else {
-                            alert('No photo configured for this member.\nTo add a photo, update the configuration in the code.');
+                            alert(`${memberName}\nNo photo configured.\nTo add a photo, update the configuration in the code.`);
                         }
                     }
                 });
