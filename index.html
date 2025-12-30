@@ -917,7 +917,7 @@
         }
 
         // ============================================
-        // FIXED LANGUAGE TOGGLE FUNCTION
+        // FIXED LANGUAGE TOGGLE FUNCTION - CORRECT CYCLE
         // ============================================
         function toggleLanguage() {
             const languageToggle = document.getElementById('languageToggle');
@@ -931,21 +931,10 @@
                 el.style.display = 'none';
             });
             
-            // Determine which language to show
+            // Determine which language to show based on CURRENT BUTTON TEXT
             if (currentLanguage === 'English') {
-                // Button says "English", show SPANISH
+                // Button says "English" → Show ENGLISH
                 toggleText.textContent = '日本語';
-                // Show all Spanish elements
-                document.querySelectorAll('.language-es').forEach(el => {
-                    if (el.classList.contains('cta-btn')) {
-                        el.style.display = 'flex';
-                    } else {
-                        el.style.display = 'block';
-                    }
-                });
-            } else if (currentLanguage === '日本語') {
-                // Button says "日本語", show ENGLISH
-                toggleText.textContent = 'Español';
                 // Show all English elements
                 document.querySelectorAll('.language-en').forEach(el => {
                     if (el.classList.contains('cta-btn')) {
@@ -954,9 +943,10 @@
                         el.style.display = 'block';
                     }
                 });
-            } else {
-                // Button says "Español", show JAPANESE
-                toggleText.textContent = 'English';
+                console.log('Switched to: English');
+            } else if (currentLanguage === '日本語') {
+                // Button says "日本語" → Show JAPANESE
+                toggleText.textContent = 'Español';
                 // Show all Japanese elements
                 document.querySelectorAll('.language-ja').forEach(el => {
                     if (el.classList.contains('cta-btn')) {
@@ -965,6 +955,19 @@
                         el.style.display = 'block';
                     }
                 });
+                console.log('Switched to: Japanese');
+            } else {
+                // Button says "Español" → Show SPANISH
+                toggleText.textContent = 'English';
+                // Show all Spanish elements
+                document.querySelectorAll('.language-es').forEach(el => {
+                    if (el.classList.contains('cta-btn')) {
+                        el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'block';
+                    }
+                });
+                console.log('Switched to: Spanish');
             }
             
             // Update member names
@@ -989,7 +992,10 @@
                 }
             });
             
-            console.log('Languages initialized: Spanish visible');
+            // Set button text to "English" (next language)
+            document.getElementById('languageToggle').querySelector('span').textContent = 'English';
+            
+            console.log('Languages initialized: Spanish visible, button says "English"');
         }
 
         // ============================================
@@ -1087,17 +1093,22 @@
             const toggleText = languageToggle.querySelector('span');
             const currentLanguageText = toggleText.textContent;
             
-            // Determine which language to show based on button text
+            // Determine which language is CURRENTLY SHOWING based on button text
+            // Button shows NEXT language, so we need to check what's showing
             let languageKey;
+            
             if (currentLanguageText === 'English') {
-                languageKey = 'spanish'; // Button says "English" means we're showing Spanish
+                // Button says "English" → Spanish is showing
+                languageKey = 'spanish';
             } else if (currentLanguageText === '日本語') {
-                languageKey = 'english'; // Button says "日本語" means we're showing English
+                // Button says "日本語" → English is showing
+                languageKey = 'english';
             } else {
-                languageKey = 'japanese'; // Button says "Español" means we're showing Japanese
+                // Button says "Español" → Japanese is showing
+                languageKey = 'japanese';
             }
             
-            console.log(`Setting member names in ${languageKey}`);
+            console.log(`Setting member names in ${languageKey} (button says: ${currentLanguageText})`);
             
             for (let i = 1; i <= 5; i++) {
                 const memberId = `member${i}`;
@@ -1143,16 +1154,17 @@
                     
                     let memberName, message;
                     
+                    // Determine which language is showing based on button text
                     if (currentLanguage === 'English') {
-                        // Showing Spanish
+                        // Spanish is showing
                         memberName = githubConfig.names.spanish[memberId];
                         message = `${memberName}\nHaz clic en "Escuchar Ahora" para conocer nuestra música.`;
                     } else if (currentLanguage === '日本語') {
-                        // Showing English
+                        // English is showing
                         memberName = githubConfig.names.english[memberId];
                         message = `${memberName}\nClick "Listen Now" to hear our music.`;
                     } else {
-                        // Showing Japanese
+                        // Japanese is showing
                         memberName = githubConfig.names.japanese[memberId];
                         message = `${memberName}\n「今すぐ聴く」をクリックして音楽をお聴きください。`;
                     }
@@ -1172,13 +1184,13 @@
                     let message;
                     
                     if (currentLanguage === 'English') {
-                        // Spanish message
+                        // Spanish is showing
                         message = `Próximamente podrás ${this.textContent.toLowerCase()}. ¡Síguenos en redes sociales para estar al tanto!`;
                     } else if (currentLanguage === '日本語') {
-                        // English message
+                        // English is showing
                         message = `Coming soon: ${this.textContent.toLowerCase()}. Follow us on social media for updates!`;
                     } else {
-                        // Japanese message
+                        // Japanese is showing
                         message = `近日公開予定: ${this.textContent.toLowerCase()}. 最新情報はSNSでご確認ください！`;
                     }
                     
