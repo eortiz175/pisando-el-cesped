@@ -23,7 +23,7 @@
             font-size: 15px;
         }
 
-        /* YouTube Background Video */
+        /* YouTube Background Video - UPDATED FOR ZOOM */
         .video-container {
             position: fixed;
             top: 0;
@@ -43,10 +43,23 @@
         }
 
         #youtubeBackground iframe {
-            width: 100%;
-            height: 100%;
+            /* Zoom effect - scales larger than viewport */
+            width: 140%;
+            height: 140%;
+            position: absolute;
+            top: -20%;
+            left: -20%;
             object-fit: cover;
             pointer-events: none;
+            
+            /* Optional: Add a subtle blur for better text readability */
+            filter: brightness(0.85) contrast(1.1);
+        }
+
+        /* Alternative: CSS transform zoom */
+        .video-container.zoomed {
+            transform: scale(1.4);
+            transform-origin: center center;
         }
 
         .video-overlay {
@@ -55,7 +68,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            /* Slightly darker overlay for better text contrast */
+            background: rgba(0, 0, 0, 0.6);
             z-index: -1;
         }
 
@@ -99,7 +113,7 @@
             padding: 1.5rem 0 1.5rem;
         }
 
-        /* Logo Styling - VARIATION 1: Simple Circular */
+        /* Logo Styling - Updated for better visibility */
         .logo-container {
             display: flex;
             justify-content: center;
@@ -111,18 +125,18 @@
             width: 100%;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.7));
+            filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.8));
             
-            /* Circular styling with transparency */
+            /* Enhanced styling for better visibility */
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            background-color: rgba(255, 255, 255, 0.15);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.2);
             padding: 10px;
             
-            /* Transparency effect */
-            opacity: 0.95;
-            mix-blend-mode: overlay;
+            /* Reduced transparency for better visibility */
+            opacity: 0.98;
+            mix-blend-mode: normal;
         }
 
         /* Tagline - No black box */
@@ -138,17 +152,17 @@
             margin-left: auto;
             margin-right: auto;
             padding: 0 1rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
 
         /* Content Sections */
         .content-section {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
             border-radius: 15px;
             padding: 1.8rem;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .section-title {
@@ -181,18 +195,18 @@
         }
 
         .member-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 1.2rem 0.8rem;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             cursor: pointer;
         }
 
         .member-card:hover {
             transform: translateY(-8px);
-            background: rgba(198, 40, 40, 0.15);
+            background: rgba(198, 40, 40, 0.2);
             border-color: #c62828;
         }
 
@@ -204,7 +218,7 @@
 
         .member-placeholder {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* CTA Buttons */
@@ -240,13 +254,13 @@
         .cta-btn.primary {
             background: #c62828;
             color: white;
-            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.3);
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.4);
         }
 
         .cta-btn.primary:hover {
             background: #d32f2f;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(198, 40, 40, 0.4);
+            box-shadow: 0 6px 20px rgba(198, 40, 40, 0.6);
         }
 
         .cta-btn.secondary {
@@ -256,7 +270,7 @@
         }
 
         .cta-btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-3px);
         }
 
@@ -265,7 +279,7 @@
             text-align: center;
             padding: 2rem 0 1.5rem;
             margin-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .follow-text {
@@ -285,7 +299,7 @@
         .social-icon {
             width: 42px;
             height: 42px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -302,7 +316,7 @@
         }
 
         .copyright {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.85rem;
             margin-top: 1.2rem;
         }
@@ -384,6 +398,14 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
+            #youtubeBackground iframe {
+                /* Adjust zoom for medium screens */
+                width: 130%;
+                height: 130%;
+                top: -15%;
+                left: -15%;
+            }
+            
             .band-logo {
                 max-width: 320px;
                 border-width: 2.5px;
@@ -409,6 +431,14 @@
         }
 
         @media (max-width: 768px) {
+            #youtubeBackground iframe {
+                /* Adjust zoom for small screens */
+                width: 120%;
+                height: 120%;
+                top: -10%;
+                left: -10%;
+            }
+            
             .container {
                 padding: 1rem;
             }
@@ -478,6 +508,14 @@
         }
 
         @media (max-width: 480px) {
+            #youtubeBackground iframe {
+                /* Less zoom on very small screens */
+                width: 110%;
+                height: 110%;
+                top: -5%;
+                left: -5%;
+            }
+            
             body {
                 font-size: 14px;
             }
@@ -521,6 +559,14 @@
         }
 
         @media (max-width: 360px) {
+            #youtubeBackground iframe {
+                /* Minimal zoom on smallest screens */
+                width: 105%;
+                height: 105%;
+                top: -2.5%;
+                left: -2.5%;
+            }
+            
             .band-logo {
                 max-width: 180px;
                 border-width: 1px;
