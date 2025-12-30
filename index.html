@@ -23,7 +23,7 @@
             font-size: 15px;
         }
 
-        /* YouTube Background Video - RESTORED TO ORIGINAL */
+        /* YouTube Background Video */
         .video-container {
             position: fixed;
             top: 0;
@@ -99,7 +99,7 @@
             padding: 1.5rem 0 1.5rem;
         }
 
-        /* Logo Styling - MADE SMALLER */
+        /* Logo Styling */
         .logo-container {
             display: flex;
             justify-content: center;
@@ -107,25 +107,20 @@
         }
 
         .band-logo {
-            /* Made slightly smaller */
             max-width: 350px;
             width: 100%;
             height: auto;
             object-fit: contain;
             filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.8));
-            
-            /* Enhanced styling for better visibility */
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid rgba(255, 255, 255, 0.4);
             background-color: rgba(255, 255, 255, 0.2);
             padding: 10px;
-            
-            /* Reduced transparency for better visibility */
             opacity: 0.98;
         }
 
-        /* Tagline - No black box */
+        /* Tagline */
         .tagline {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
@@ -172,7 +167,7 @@
             transform: translateX(-50%);
         }
 
-        /* Band Members - UPDATED FOR CIRCULAR SELFIES */
+        /* Band Members */
         .band-members {
             display: flex;
             justify-content: center;
@@ -222,7 +217,6 @@
             color: rgba(255, 255, 255, 0.3);
         }
 
-        /* Member name styling - UPDATED FOR BETTER READABILITY */
         .member-name {
             font-size: 1rem;
             font-weight: 500;
@@ -334,7 +328,7 @@
             margin-top: 1.2rem;
         }
 
-        /* Play Overlay - Only shows if autoplay fails */
+        /* Play Overlay */
         .play-overlay {
             position: fixed;
             top: 0;
@@ -380,7 +374,7 @@
             transform: scale(1.1);
         }
 
-        /* Language Toggle */
+        /* Language Toggle - UPDATED FOR 3 LANGUAGES */
         .language-toggle {
             position: fixed;
             top: 15px;
@@ -405,7 +399,8 @@
             transform: translateY(-2px);
         }
 
-        .language-en {
+        /* Language classes - hide all non-Spanish by default */
+        .language-en, .language-ja {
             display: none;
         }
 
@@ -413,8 +408,6 @@
         @media (max-width: 992px) {
             .band-logo {
                 max-width: 300px;
-                border-width: 2.5px;
-                padding: 8px;
             }
             
             .tagline {
@@ -451,8 +444,6 @@
             
             .band-logo {
                 max-width: 250px;
-                border-width: 2px;
-                padding: 6px;
             }
             
             .tagline {
@@ -534,8 +525,6 @@
             
             .band-logo {
                 max-width: 200px;
-                border-width: 1.5px;
-                padding: 4px;
             }
             
             .tagline {
@@ -583,8 +572,6 @@
         @media (max-width: 360px) {
             .band-logo {
                 max-width: 160px;
-                border-width: 1px;
-                padding: 3px;
             }
             
             .tagline {
@@ -616,7 +603,7 @@
     </style>
 </head>
 <body>
-    <!-- Play Overlay - Only shows if autoplay fails -->
+    <!-- Play Overlay -->
     <div class="play-overlay" id="playOverlay">
         <button class="play-button" id="playButton">
             <i class="fas fa-play"></i>
@@ -629,7 +616,7 @@
         </p>
     </div>
 
-    <!-- Language Toggle -->
+    <!-- Language Toggle - UPDATED FOR 3 LANGUAGES -->
     <button class="language-toggle" id="languageToggle">
         <i class="fas fa-language"></i>
         <span>English</span>
@@ -662,13 +649,19 @@
             <div class="tagline language-en">
                 We are more than a band; we are a musical convergence of the Americas and beyond!
             </div>
+            
+            <!-- Japanese Version -->
+            <div class="tagline language-ja">
+                私たちは単なるバンド以上の存在です。南北アメリカを越えた音楽の交差点です！
+            </div>
         </header>
 
         <main>
-            <!-- Band Members Section - UPDATED -->
+            <!-- Band Members Section -->
             <section class="content-section">
                 <h2 class="section-title language-es">Conozca a la Banda</h2>
                 <h2 class="section-title language-en">Meet the Band</h2>
+                <h2 class="section-title language-ja">バンドメンバー</h2>
                 <div class="band-members">
                     <!-- Band Member 1 -->
                     <div class="member-card" id="member1">
@@ -727,10 +720,11 @@
                 </div>
             </section>
 
-            <!-- CTA Section - UPDATED TITLE -->
+            <!-- CTA Section -->
             <section class="cta-section">
                 <h2 class="section-title language-es">Conectate con Nosotros</h2>
                 <h2 class="section-title language-en">Connect With Us</h2>
+                <h2 class="section-title language-ja">お問い合わせ</h2>
                 <div class="cta-buttons">
                     <!-- Spanish Buttons -->
                     <a href="#" class="cta-btn primary language-es">
@@ -753,6 +747,17 @@
                     <a href="#" class="cta-btn secondary language-en">
                         <i class="fas fa-envelope"></i> Contact Us
                     </a>
+                    
+                    <!-- Japanese Buttons -->
+                    <a href="#" class="cta-btn primary language-ja">
+                        <i class="fas fa-play-circle"></i> 今すぐ聴く
+                    </a>
+                    <a href="#" class="cta-btn secondary language-ja">
+                        <i class="fas fa-calendar-alt"></i> 今後の公演
+                    </a>
+                    <a href="#" class="cta-btn secondary language-ja">
+                        <i class="fas fa-envelope"></i> お問い合わせ
+                    </a>
                 </div>
             </section>
         </main>
@@ -761,6 +766,7 @@
             <!-- Spanish Footer -->
             <div class="follow-text language-es">Sigue a Pisando el Cesped</div>
             <div class="follow-text language-en">Follow Pisando el Cesped</div>
+            <div class="follow-text language-ja">Pisando el Cespedをフォロー</div>
             
             <div class="social-links">
                 <a href="#" class="social-icon">
@@ -788,6 +794,9 @@
             </div>
             <div class="copyright language-en">
                 © 2023 Pisando el Cesped. All rights reserved.
+            </div>
+            <div class="copyright language-ja">
+                © 2023 Pisando el Cesped. 無断複写・転載を禁じます。
             </div>
         </footer>
     </div>
@@ -833,7 +842,6 @@
                 isMuted = false;
                 updateSoundButton();
                 
-                // Check after 1 second if autoplay succeeded
                 setTimeout(checkAutoplayStatus, 1000);
                 
             } catch (error) {
@@ -845,18 +853,15 @@
         function onPlayerStateChange(event) {
             console.log("Player state changed:", event.data);
             
-            // If video starts playing, autoplay succeeded
             if (event.data === YT.PlayerState.PLAYING && !autoplaySuccessful) {
                 autoplaySuccessful = true;
                 console.log("Autoplay successful!");
                 
-                // Hide play overlay if it's visible
                 setTimeout(() => {
                     document.getElementById('playOverlay').classList.remove('active');
                 }, 500);
             }
             
-            // When video ends, restart
             if (event.data === YT.PlayerState.ENDED) {
                 player.seekTo(START_TIME, true);
                 player.playVideo();
@@ -876,14 +881,10 @@
 
         function startVideo() {
             if (player) {
-                // Hide play overlay
                 document.getElementById('playOverlay').classList.remove('active');
-                
-                // Start playing
                 player.seekTo(START_TIME, true);
                 player.playVideo();
                 
-                // Try to unmute
                 try {
                     player.unMute();
                     player.setVolume(100);
@@ -907,12 +908,10 @@
         function toggleSound() {
             if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
                 if (isMuted) {
-                    // Unmute
                     player.unMute();
                     player.setVolume(100);
                     isMuted = false;
                 } else {
-                    // Mute
                     player.mute();
                     isMuted = true;
                 }
@@ -920,84 +919,81 @@
             }
         }
 
-// FIXED LANGUAGE TOGGLE FUNCTION
-function toggleLanguage() {
-    const languageToggle = document.getElementById('languageToggle');
-    const toggleText = languageToggle.querySelector('span');
-    
-    // Get all elements with language classes
-    const spanishElements = document.querySelectorAll('.language-es');
-    const englishElements = document.querySelectorAll('.language-en');
-    
-    if (toggleText.textContent === 'English') {
-        // Switching TO English
-        toggleText.textContent = 'Español';
-        
-        // Hide all Spanish elements
-        spanishElements.forEach(el => {
-            el.style.display = 'none';
-        });
-        
-        // Show all English elements
-        englishElements.forEach(el => {
-            el.style.display = '';
+        // UPDATED LANGUAGE TOGGLE FUNCTION FOR 3 LANGUAGES
+        function toggleLanguage() {
+            const languageToggle = document.getElementById('languageToggle');
+            const toggleText = languageToggle.querySelector('span');
             
-            // Special handling for buttons to maintain flex display
-            if (el.classList.contains('cta-btn')) {
-                el.style.display = 'flex';
-            }
-        });
-        
-    } else {
-        // Switching TO Spanish
-        toggleText.textContent = 'English';
-        
-        // Hide all English elements
-        englishElements.forEach(el => {
-            el.style.display = 'none';
-        });
-        
-        // Show all Spanish elements
-        spanishElements.forEach(el => {
-            el.style.display = '';
+            // Get all elements with language classes
+            const spanishElements = document.querySelectorAll('.language-es');
+            const englishElements = document.querySelectorAll('.language-en');
+            const japaneseElements = document.querySelectorAll('.language-ja');
             
-            // Special handling for buttons to maintain flex display
-            if (el.classList.contains('cta-btn')) {
-                el.style.display = 'flex';
+            // Get current language from button text
+            const currentLanguage = toggleText.textContent;
+            
+            // Determine next language
+            let nextLanguage, nextElements, hideElements1, hideElements2;
+            
+            if (currentLanguage === 'English') {
+                // Switching to English
+                toggleText.textContent = '日本語'; // Japanese
+                nextLanguage = 'en';
+                nextElements = englishElements;
+                hideElements1 = spanishElements;
+                hideElements2 = japaneseElements;
+            } else if (currentLanguage === '日本語') {
+                // Switching to Japanese
+                toggleText.textContent = 'Español'; // Spanish
+                nextLanguage = 'ja';
+                nextElements = japaneseElements;
+                hideElements1 = spanishElements;
+                hideElements2 = englishElements;
+            } else {
+                // Switching to Spanish (default)
+                toggleText.textContent = 'English';
+                nextLanguage = 'es';
+                nextElements = spanishElements;
+                hideElements1 = englishElements;
+                hideElements2 = japaneseElements;
             }
-        });
-    }
-    
-    // Update member names after language change
-    setMemberNames();
-}
+            
+            // Hide all elements from other languages
+            hideElements1.forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            hideElements2.forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show elements for the selected language
+            nextElements.forEach(el => {
+                el.style.display = '';
+                
+                // Special handling for buttons to maintain flex display
+                if (el.classList.contains('cta-btn')) {
+                    el.style.display = 'flex';
+                }
+            });
+            
+            // Update member names after language change
+            setMemberNames();
+        }
 
-        // ============================================
-        // GITHUB CONFIGURATION - UPDATE THESE VALUES!
-        // ============================================
+        // UPDATED GITHUB CONFIGURATION WITH JAPANESE NAMES
         const githubConfig = {
-            // Your GitHub username (found in your GitHub profile URL)
-            username: 'eortiz175', // ← REPLACE THIS
-            
-            // Your repository name (where you uploaded the photos)
-            repo: 'pisando-el-cesped', // ← REPLACE THIS
-            
-            // Branch name (usually 'main' or 'master')
-            branch: 'main', // ← REPLACE IF DIFFERENT
-            
-            // Folder where photos are stored (should be 'band-photos')
+            username: 'eortiz175',
+            repo: 'pisando-el-cesped',
+            branch: 'main',
             folderPath: 'band-photos',
-            
-            // Photo filenames - MAKE SURE THESE MATCH YOUR UPLOADED FILES
             photos: {
-                member1: 'jorge-chino-ramos.jpg',  // Photo for Jorge
-                member2: 'adrian-cardenas.jpg',    // Photo for Adrian
-                member3: 'noriko-mendez.jpg',      // Photo for Noriko
-                member4: 'carlos-caldero.jpg',     // Photo for Carlos
-                member5: 'emmanuel-ortiz.jpg'      // Photo for Emmanuel
+                member1: 'jorge-chino-ramos.jpg',
+                member2: 'adrian-cardenas.jpg',
+                member3: 'noriko-mendez.jpg',
+                member4: 'carlos-caldero.jpg',
+                member5: 'emmanuel-ortiz.jpg'
             },
-            
-            // Band member names
             names: {
                 spanish: {
                     member1: 'Jorge "Chino" Ramos',
@@ -1012,23 +1008,25 @@ function toggleLanguage() {
                     member3: 'Noriko Mendez',
                     member4: 'Carlos Caldero',
                     member5: 'Emmanuel Ortiz'
+                },
+                japanese: {
+                    member1: 'ホルヘ「チノ」ラモス',
+                    member2: 'エイドリアン・カルデナス',
+                    member3: 'ノリコ・メンデス',
+                    member4: 'カルロス・カルデロ',
+                    member5: 'エマニュエル・オルティス'
                 }
             }
         };
 
-        // Function to build GitHub raw URL
         function getGitHubPhotoUrl(filename) {
             if (!filename) return null;
-            
-            // Construct the raw GitHub URL
             return `https://raw.githubusercontent.com/${githubConfig.username}/${githubConfig.repo}/${githubConfig.branch}/${githubConfig.folderPath}/${filename}`;
         }
 
-        // Function to load band member photos from GitHub
         function loadBandPhotos() {
             console.log('Loading band photos from GitHub...');
             
-            // Load each member's photo
             for (let i = 1; i <= 5; i++) {
                 const memberId = `member${i}`;
                 const photoFilename = githubConfig.photos[memberId];
@@ -1039,84 +1037,65 @@ function toggleLanguage() {
                     
                     if (photoUrl) {
                         setMemberPhoto(memberId, photoUrl);
-                    } else {
-                        console.error(`No photo URL for ${memberId}`);
                     }
-                } else {
-                    console.error(`No photo filename configured for ${memberId}`);
                 }
             }
             
-            // Set band member names
             setMemberNames();
         }
 
-        // Function to set member photo
         function setMemberPhoto(memberId, photoUrl) {
             const memberCard = document.getElementById(memberId);
-            if (!memberCard) {
-                console.error(`Member card not found: ${memberId}`);
-                return;
-            }
+            if (!memberCard) return;
             
-            const photoContainer = memberCard.querySelector('.member-photo-container');
             const icon = memberCard.querySelector('.member-icon');
             const photo = memberCard.querySelector('.member-photo');
             
-            if (!photo) {
-                console.error(`Photo element not found for ${memberId}`);
-                return;
-            }
+            if (!photo) return;
             
-            // Create image element to test loading
             const img = new Image();
             img.onload = function() {
-                // Photo loaded successfully
-                console.log(`Photo loaded successfully for ${memberId}`);
                 photo.src = photoUrl;
                 photo.style.display = 'block';
                 photo.alt = githubConfig.names.spanish[memberId] || 'Band Member';
                 if (icon) icon.style.display = 'none';
             };
             img.onerror = function() {
-                // Photo failed to load
                 console.error(`Failed to load photo for ${memberId}: ${photoUrl}`);
                 photo.style.display = 'none';
                 if (icon) icon.style.display = 'block';
-                
-                // Show error message in console with troubleshooting info
-                console.log(`Troubleshooting for ${memberId}:`);
-                console.log(`1. Check if repository is public: https://github.com/${githubConfig.username}/${githubConfig.repo}`);
-                console.log(`2. Check if file exists: https://github.com/${githubConfig.username}/${githubConfig.repo}/tree/${githubConfig.branch}/${githubConfig.folderPath}`);
-                console.log(`3. Try opening URL directly: ${photoUrl}`);
             };
             img.src = photoUrl;
         }
 
-        // Function to set member names
+        // UPDATED SET MEMBER NAMES FUNCTION FOR 3 LANGUAGES
         function setMemberNames() {
-            const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
-            const isSpanish = currentLang === 'Español';
+            const languageToggle = document.getElementById('languageToggle');
+            const toggleText = languageToggle.querySelector('span');
+            const currentLanguageText = toggleText.textContent;
             
-            console.log(`Setting member names in ${isSpanish ? 'Spanish' : 'English'}`);
+            // Determine which language to show based on button text
+            let languageKey;
+            if (currentLanguageText === 'English') {
+                languageKey = 'spanish'; // Button says "English" means we're showing Spanish
+            } else if (currentLanguageText === '日本語') {
+                languageKey = 'english'; // Button says "日本語" means we're showing English
+            } else {
+                languageKey = 'japanese'; // Button says "Español" means we're showing Japanese
+            }
+            
+            console.log(`Setting member names in ${languageKey}`);
             
             for (let i = 1; i <= 5; i++) {
                 const memberId = `member${i}`;
                 const nameElement = document.getElementById(`${memberId}-name`);
                 
                 if (nameElement) {
-                    const nameData = isSpanish ? 
-                        githubConfig.names.spanish[memberId] : 
-                        githubConfig.names.english[memberId];
+                    const nameData = githubConfig.names[languageKey][memberId];
                     
                     if (nameData) {
                         nameElement.textContent = nameData;
-                        console.log(`Set ${memberId} name to: ${nameData}`);
-                    } else {
-                        console.error(`No name data for ${memberId}`);
                     }
-                } else {
-                    console.error(`Name element not found for ${memberId}`);
                 }
             }
         }
@@ -1127,69 +1106,82 @@ function toggleLanguage() {
             const playOverlay = document.getElementById('playOverlay');
             const languageToggle = document.getElementById('languageToggle');
 
-            // Play button functionality
             playButton.addEventListener('click', startVideo);
             
-            // Click overlay to start
             playOverlay.addEventListener('click', function(e) {
                 if (e.target === this) {
                     startVideo();
                 }
             });
 
-            // Sound toggle
             soundToggle.addEventListener('click', toggleSound);
-
-            // Language toggle
             languageToggle.addEventListener('click', toggleLanguage);
 
-            // Member cards interaction
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
+                    const languageToggle = document.getElementById('languageToggle');
+                    const toggleText = languageToggle.querySelector('span');
+                    const currentLanguage = toggleText.textContent;
                     const memberId = this.id;
-                    const memberName = githubConfig.names.spanish[memberId];
                     
-                    if (currentLang === 'Español') {
-                        alert(`${memberName}\nHaz clic en "Escuchar Ahora" para conocer nuestra música.`);
+                    let memberName, message;
+                    
+                    if (currentLanguage === 'English') {
+                        // Showing Spanish
+                        memberName = githubConfig.names.spanish[memberId];
+                        message = `${memberName}\nHaz clic en "Escuchar Ahora" para conocer nuestra música.`;
+                    } else if (currentLanguage === '日本語') {
+                        // Showing English
+                        memberName = githubConfig.names.english[memberId];
+                        message = `${memberName}\nClick "Listen Now" to hear our music.`;
                     } else {
-                        alert(`${memberName}\nClick "Listen Now" to hear our music.`);
+                        // Showing Japanese
+                        memberName = githubConfig.names.japanese[memberId];
+                        message = `${memberName}\n「今すぐ聴く」をクリックして音楽をお聴きください。`;
                     }
+                    
+                    alert(message);
                 });
             });
 
-            // CTA buttons interaction
             const ctaButtons = document.querySelectorAll('.cta-btn');
             ctaButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
-                    const action = this.textContent.trim();
+                    const languageToggle = document.getElementById('languageToggle');
+                    const toggleText = languageToggle.querySelector('span');
+                    const currentLanguage = toggleText.textContent;
                     
-                    if (currentLang === 'Español') {
-                        alert(`Próximamente podrás ${action.toLowerCase()}. ¡Síguenos en redes sociales para estar al tanto!`);
+                    let message;
+                    
+                    if (currentLanguage === 'English') {
+                        // Spanish message
+                        message = `Próximamente podrás ${this.textContent.toLowerCase()}. ¡Síguenos en redes sociales para estar al tanto!`;
+                    } else if (currentLanguage === '日本語') {
+                        // English message
+                        message = `Coming soon: ${this.textContent.toLowerCase()}. Follow us on social media for updates!`;
                     } else {
-                        alert(`Coming soon: ${action.toLowerCase()}. Follow us on social media for updates!`);
+                        // Japanese message
+                        message = `近日公開予定: ${this.textContent.toLowerCase()}. 最新情報はSNSでご確認ください！`;
                     }
+                    
+                    alert(message);
                 });
             });
 
-            // Try to start video on any user interaction if autoplay failed
             document.addEventListener('click', function() {
                 if (!autoplaySuccessful && autoplayAttempted) {
                     startVideo();
                 }
             });
 
-            // Also try autoplay after page loads
             setTimeout(() => {
                 if (!autoplaySuccessful && autoplayAttempted) {
                     startVideo();
                 }
             }, 2000);
             
-            // Load band photos from GitHub
             loadBandPhotos();
         });
     </script>
