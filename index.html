@@ -399,25 +399,7 @@
             transform: translateY(-2px);
         }
 
-        /* ============================================ */
-        /* UPDATED LANGUAGE CLASSES - FIXED VERSION */
-        /* ============================================ */
-        
-        /* Hide all non-Spanish text elements by default */
-        .tagline:not(.language-es),
-        .section-title:not(.language-es),
-        .follow-text:not(.language-es),
-        .copyright:not(.language-es) {
-            display: none;
-        }
-
-        /* Hide all non-Spanish CTA buttons by default */
-        .cta-buttons .language-en,
-        .cta-buttons .language-ja {
-            display: none;
-        }
-
-        /* Member names will be controlled by JavaScript, not CSS */
+        /* IMPORTANT: NO LANGUAGE CSS RULES HERE - JavaScript handles everything */
 
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -934,65 +916,85 @@
             }
         }
 
-        // UPDATED LANGUAGE TOGGLE FUNCTION FOR 3 LANGUAGES
+        // ============================================
+        // FIXED LANGUAGE TOGGLE FUNCTION
+        // ============================================
         function toggleLanguage() {
             const languageToggle = document.getElementById('languageToggle');
             const toggleText = languageToggle.querySelector('span');
             
-            // Get all elements with language classes
-            const spanishElements = document.querySelectorAll('.language-es');
-            const englishElements = document.querySelectorAll('.language-en');
-            const japaneseElements = document.querySelectorAll('.language-ja');
-            
             // Get current language from button text
             const currentLanguage = toggleText.textContent;
             
-            // Hide ALL language elements first
-            spanishElements.forEach(el => el.style.display = 'none');
-            englishElements.forEach(el => el.style.display = 'none');
-            japaneseElements.forEach(el => el.style.display = 'none');
+            // FIRST: HIDE EVERY SINGLE LANGUAGE ELEMENT
+            document.querySelectorAll('.language-es, .language-en, .language-ja').forEach(el => {
+                el.style.display = 'none';
+            });
             
             // Determine which language to show
             if (currentLanguage === 'English') {
-                // Button says "English", so we're showing SPANISH
+                // Button says "English", show SPANISH
                 toggleText.textContent = '日本語';
-                // Show Spanish elements
-                spanishElements.forEach(el => {
-                    el.style.display = '';
-                    // Special handling for buttons
+                // Show all Spanish elements
+                document.querySelectorAll('.language-es').forEach(el => {
                     if (el.classList.contains('cta-btn')) {
                         el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'block';
                     }
                 });
             } else if (currentLanguage === '日本語') {
-                // Button says "日本語", so we're showing ENGLISH
+                // Button says "日本語", show ENGLISH
                 toggleText.textContent = 'Español';
-                // Show English elements
-                englishElements.forEach(el => {
-                    el.style.display = '';
-                    // Special handling for buttons
+                // Show all English elements
+                document.querySelectorAll('.language-en').forEach(el => {
                     if (el.classList.contains('cta-btn')) {
                         el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'block';
                     }
                 });
             } else {
-                // Button says "Español", so we're showing JAPANESE
+                // Button says "Español", show JAPANESE
                 toggleText.textContent = 'English';
-                // Show Japanese elements
-                japaneseElements.forEach(el => {
-                    el.style.display = '';
-                    // Special handling for buttons
+                // Show all Japanese elements
+                document.querySelectorAll('.language-ja').forEach(el => {
                     if (el.classList.contains('cta-btn')) {
                         el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'block';
                     }
                 });
             }
             
-            // Update member names after language change
+            // Update member names
             setMemberNames();
         }
 
-        // UPDATED GITHUB CONFIGURATION WITH JAPANESE NAMES
+        // Function to initialize languages on page load
+        function initializeLanguages() {
+            console.log('Initializing languages...');
+            
+            // Hide English and Japanese elements on page load
+            document.querySelectorAll('.language-en, .language-ja').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show Spanish elements
+            document.querySelectorAll('.language-es').forEach(el => {
+                if (el.classList.contains('cta-btn')) {
+                    el.style.display = 'flex';
+                } else {
+                    el.style.display = 'block';
+                }
+            });
+            
+            console.log('Languages initialized: Spanish visible');
+        }
+
+        // ============================================
+        // GITHUB CONFIGURATION
+        // ============================================
         const githubConfig = {
             username: 'eortiz175',
             repo: 'pisando-el-cesped',
@@ -1127,6 +1129,9 @@
 
             soundToggle.addEventListener('click', toggleSound);
             languageToggle.addEventListener('click', toggleLanguage);
+
+            // Initialize languages on page load
+            initializeLanguages();
 
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach(card => {
