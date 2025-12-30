@@ -171,39 +171,71 @@
             transform: translateX(-50%);
         }
 
-        /* Band Members */
+        /* Band Members - UPDATED FOR CIRCULAR SELFIES */
         .band-members {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1.2rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
             margin-top: 1.2rem;
         }
 
         .member-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1.2rem 0.8rem;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
+            width: 140px;
         }
 
-        .member-card:hover {
-            transform: translateY(-8px);
-            background: rgba(198, 40, 40, 0.15);
+        .member-photo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .member-photo-container:hover {
             border-color: #c62828;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.3);
+        }
+
+        .member-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
         }
 
         .member-icon {
-            font-size: 2rem;
-            color: #c62828;
-            margin-bottom: 0.8rem;
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .member-placeholder {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-top: 0.3rem;
+        }
+        
+        /* Member name styling */
+        .member-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            margin-top: 0.5rem;
+            min-height: 1.5rem;
         }
 
         /* CTA Buttons */
@@ -397,13 +429,13 @@
                 font-size: 1.6rem;
             }
             
-            .band-members {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-                gap: 1rem;
+            .member-photo-container {
+                width: 110px;
+                height: 110px;
             }
             
             .member-card {
-                padding: 1rem 0.6rem;
+                width: 130px;
             }
         }
 
@@ -453,7 +485,20 @@
             }
             
             .band-members {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .member-photo-container {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .member-card {
+                width: 120px;
+            }
+            
+            .member-icon {
+                font-size: 2.2rem;
             }
             
             .follow-text {
@@ -496,16 +541,20 @@
             }
             
             .band-members {
-                grid-template-columns: 1fr;
                 gap: 0.8rem;
             }
             
+            .member-photo-container {
+                width: 90px;
+                height: 90px;
+            }
+            
             .member-card {
-                padding: 1rem 0.5rem;
+                width: 100px;
             }
             
             .member-icon {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .social-icon {
@@ -536,6 +585,15 @@
             
             .cta-btn {
                 min-width: 200px;
+            }
+            
+            .member-photo-container {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .member-card {
+                width: 90px;
             }
         }
     </style>
@@ -590,59 +648,81 @@
         </header>
 
         <main>
-            <!-- Band Members Section -->
+            <!-- Band Members Section - UPDATED -->
             <section class="content-section">
-                <h2 class="section-title language-es">Conoce a la Banda</h2>
+                <h2 class="section-title language-es">Conozca a la Banda</h2>
                 <h2 class="section-title language-en">Meet the Band</h2>
                 <div class="band-members">
-                    <div class="member-card">
-                        <div class="member-icon">
-                            <i class="fas fa-music"></i>
+                    <!-- Band Member 1 -->
+                    <div class="member-card" id="member1">
+                        <div class="member-photo-container">
+                            <div class="member-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <img src="" alt="Band Member 1" class="member-photo">
                         </div>
+                        <div class="member-name" id="member1-name"></div>
                         <div class="member-placeholder language-es">Agregar Foto</div>
                         <div class="member-placeholder language-en">Add Photo</div>
                     </div>
-                    <div class="member-card">
-                        <div class="member-icon">
-                            <i class="fas fa-drum"></i>
+                    
+                    <!-- Band Member 2 -->
+                    <div class="member-card" id="member2">
+                        <div class="member-photo-container">
+                            <div class="member-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <img src="" alt="Band Member 2" class="member-photo">
                         </div>
+                        <div class="member-name" id="member2-name"></div>
                         <div class="member-placeholder language-es">Agregar Foto</div>
                         <div class="member-placeholder language-en">Add Photo</div>
                     </div>
-                    <div class="member-card">
-                        <div class="member-icon">
-                            <i class="fas fa-guitar"></i>
+                    
+                    <!-- Band Member 3 -->
+                    <div class="member-card" id="member3">
+                        <div class="member-photo-container">
+                            <div class="member-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <img src="" alt="Band Member 3" class="member-photo">
                         </div>
+                        <div class="member-name" id="member3-name"></div>
                         <div class="member-placeholder language-es">Agregar Foto</div>
                         <div class="member-placeholder language-en">Add Photo</div>
                     </div>
-                    <div class="member-card">
-                        <div class="member-icon">
-                            <i class="fas fa-trumpet"></i>
+                    
+                    <!-- Band Member 4 -->
+                    <div class="member-card" id="member4">
+                        <div class="member-photo-container">
+                            <div class="member-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <img src="" alt="Band Member 4" class="member-photo">
                         </div>
+                        <div class="member-name" id="member4-name"></div>
                         <div class="member-placeholder language-es">Agregar Foto</div>
                         <div class="member-placeholder language-en">Add Photo</div>
                     </div>
-                    <div class="member-card">
-                        <div class="member-icon">
-                            <i class="fas fa-keyboard"></i>
+                    
+                    <!-- Band Member 5 -->
+                    <div class="member-card" id="member5">
+                        <div class="member-photo-container">
+                            <div class="member-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <img src="" alt="Band Member 5" class="member-photo">
                         </div>
-                        <div class="member-placeholder language-es">Agregar Foto</div>
-                        <div class="member-placeholder language-en">Add Photo</div>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-icon">
-                            <i class="fas fa-microphone"></i>
-                        </div>
+                        <div class="member-name" id="member5-name"></div>
                         <div class="member-placeholder language-es">Agregar Foto</div>
                         <div class="member-placeholder language-en">Add Photo</div>
                     </div>
                 </div>
             </section>
 
-            <!-- CTA Section -->
+            <!-- CTA Section - UPDATED TITLE -->
             <section class="cta-section">
-                <h2 class="section-title language-es">Conecta con Nosotros</h2>
+                <h2 class="section-title language-es">Conectate con Nosotros</h2>
                 <h2 class="section-title language-en">Connect With Us</h2>
                 <div class="cta-buttons">
                     <!-- Spanish Buttons -->
@@ -870,6 +950,131 @@
             }
         }
 
+        // GitHub repository configuration
+        const githubConfig = {
+            // ============================================
+            // CONFIGURE YOUR GITHUB SETTINGS HERE
+            // ============================================
+            
+            // GitHub username (replace with your GitHub username)
+            username: 'YOUR_GITHUB_USERNAME',
+            
+            // Repository name where photos are stored
+            repo: 'YOUR_REPO_NAME',
+            
+            // Branch name (usually 'main' or 'master')
+            branch: 'main',
+            
+            // Folder path where photos are stored in your repo
+            folderPath: 'band-photos',
+            
+            // ============================================
+            // BAND MEMBER PHOTO URLs
+            // ============================================
+            // Photo filenames (add your actual photo filenames here)
+            photos: {
+                member1: 'photo1.jpg',
+                member2: 'photo2.jpg',
+                member3: 'photo3.jpg',
+                member4: 'photo4.jpg',
+                member5: 'photo5.jpg'
+            },
+            
+            // Band member names (Spanish and English)
+            names: {
+                spanish: {
+                    member1: 'Nombre 1',
+                    member2: 'Nombre 2',
+                    member3: 'Nombre 3',
+                    member4: 'Nombre 4',
+                    member5: 'Nombre 5'
+                },
+                english: {
+                    member1: 'Name 1',
+                    member2: 'Name 2',
+                    member3: 'Name 3',
+                    member4: 'Name 4',
+                    member5: 'Name 5'
+                }
+            }
+        };
+
+        // Function to build GitHub raw URL
+        function getGitHubPhotoUrl(filename) {
+            if (!filename) return null;
+            
+            return `https://raw.githubusercontent.com/${githubConfig.username}/${githubConfig.repo}/${githubConfig.branch}/${githubConfig.folderPath}/${filename}`;
+        }
+
+        // Function to load band member photos from GitHub
+        function loadBandPhotos() {
+            // Load each member's photo
+            for (let i = 1; i <= 5; i++) {
+                const memberId = `member${i}`;
+                const photoFilename = githubConfig.photos[memberId];
+                
+                if (photoFilename) {
+                    const photoUrl = getGitHubPhotoUrl(photoFilename);
+                    if (photoUrl) {
+                        setMemberPhoto(memberId, photoUrl);
+                    }
+                }
+            }
+            
+            // Set band member names
+            setMemberNames();
+        }
+
+        // Function to set member photo
+        function setMemberPhoto(memberId, photoUrl) {
+            const memberCard = document.getElementById(memberId);
+            if (memberCard) {
+                const photoContainer = memberCard.querySelector('.member-photo-container');
+                const icon = memberCard.querySelector('.member-icon');
+                const photo = memberCard.querySelector('.member-photo');
+                const placeholder = memberCard.querySelectorAll('.member-placeholder');
+                
+                // Create image element
+                const img = new Image();
+                img.onload = function() {
+                    // Photo loaded successfully
+                    photo.src = photoUrl;
+                    photo.style.display = 'block';
+                    icon.style.display = 'none';
+                    placeholder.forEach(p => p.style.display = 'none');
+                };
+                img.onerror = function() {
+                    // Photo failed to load
+                    console.log(`Failed to load photo for ${memberId}: ${photoUrl}`);
+                    photo.style.display = 'none';
+                    icon.style.display = 'block';
+                    placeholder.forEach(p => p.style.display = 'block');
+                };
+                img.src = photoUrl;
+            }
+        }
+
+        // Function to set member names
+        function setMemberNames() {
+            const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
+            const isSpanish = currentLang === 'Español';
+            
+            for (let i = 1; i <= 5; i++) {
+                const memberId = `member${i}`;
+                const nameElement = document.getElementById(`${memberId}-name`);
+                
+                if (nameElement) {
+                    const nameData = isSpanish ? 
+                        githubConfig.names.spanish[memberId] : 
+                        githubConfig.names.english[memberId];
+                    
+                    if (nameData) {
+                        nameElement.textContent = nameData;
+                    }
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const playButton = document.getElementById('playButton');
             const soundToggle = document.getElementById('soundToggle');
@@ -889,18 +1094,32 @@
             // Sound toggle
             soundToggle.addEventListener('click', toggleSound);
 
-            // Language toggle
-            languageToggle.addEventListener('click', toggleLanguage);
+            // Language toggle - updated to also update names
+            languageToggle.addEventListener('click', function() {
+                toggleLanguage();
+                setMemberNames(); // Update names when language changes
+            });
 
-            // Member cards interaction
+            // Member cards interaction - now shows photo info
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const currentLang = document.getElementById('languageToggle').querySelector('span').textContent;
+                    const memberId = this.id;
+                    const photoFilename = githubConfig.photos[memberId];
+                    
                     if (currentLang === 'Español') {
-                        alert('Click en miembro de la banda - Agregar foto aquí');
+                        if (photoFilename) {
+                            alert(`Foto de ${githubConfig.names.spanish[memberId] || 'miembro'}\nArchivo: ${photoFilename}\nPara cambiar la foto, actualice la configuración en el código.`);
+                        } else {
+                            alert('No hay foto configurada para este miembro.\nPara agregar una foto, actualice la configuración en el código.');
+                        }
                     } else {
-                        alert('Band member click - Add photo here');
+                        if (photoFilename) {
+                            alert(`${githubConfig.names.english[memberId] || 'Member'} photo\nFile: ${photoFilename}\nTo change photo, update the configuration in the code.`);
+                        } else {
+                            alert('No photo configured for this member.\nTo add a photo, update the configuration in the code.');
+                        }
                     }
                 });
             });
@@ -934,6 +1153,9 @@
                     startVideo();
                 }
             }, 2000);
+            
+            // Load band photos from GitHub
+            loadBandPhotos();
         });
     </script>
 </body>
