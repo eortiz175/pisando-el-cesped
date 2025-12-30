@@ -374,7 +374,7 @@
             transform: scale(1.1);
         }
 
-        /* Language Toggle - UPDATED FOR 3 LANGUAGES */
+        /* Language Toggle */
         .language-toggle {
             position: fixed;
             top: 15px;
@@ -399,10 +399,25 @@
             transform: translateY(-2px);
         }
 
-        /* Language classes - hide all non-Spanish by default */
-        .language-en, .language-ja {
+        /* ============================================ */
+        /* UPDATED LANGUAGE CLASSES - FIXED VERSION */
+        /* ============================================ */
+        
+        /* Hide all non-Spanish text elements by default */
+        .tagline:not(.language-es),
+        .section-title:not(.language-es),
+        .follow-text:not(.language-es),
+        .copyright:not(.language-es) {
             display: none;
         }
+
+        /* Hide all non-Spanish CTA buttons by default */
+        .cta-buttons .language-en,
+        .cta-buttons .language-ja {
+            display: none;
+        }
+
+        /* Member names will be controlled by JavaScript, not CSS */
 
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -616,7 +631,7 @@
         </p>
     </div>
 
-    <!-- Language Toggle - UPDATED FOR 3 LANGUAGES -->
+    <!-- Language Toggle -->
     <button class="language-toggle" id="languageToggle">
         <i class="fas fa-language"></i>
         <span>English</span>
@@ -932,50 +947,46 @@
             // Get current language from button text
             const currentLanguage = toggleText.textContent;
             
-            // Determine next language
-            let nextLanguage, nextElements, hideElements1, hideElements2;
+            // Hide ALL language elements first
+            spanishElements.forEach(el => el.style.display = 'none');
+            englishElements.forEach(el => el.style.display = 'none');
+            japaneseElements.forEach(el => el.style.display = 'none');
             
+            // Determine which language to show
             if (currentLanguage === 'English') {
-                // Switching to English
-                toggleText.textContent = '日本語'; // Japanese
-                nextLanguage = 'en';
-                nextElements = englishElements;
-                hideElements1 = spanishElements;
-                hideElements2 = japaneseElements;
+                // Button says "English", so we're showing SPANISH
+                toggleText.textContent = '日本語';
+                // Show Spanish elements
+                spanishElements.forEach(el => {
+                    el.style.display = '';
+                    // Special handling for buttons
+                    if (el.classList.contains('cta-btn')) {
+                        el.style.display = 'flex';
+                    }
+                });
             } else if (currentLanguage === '日本語') {
-                // Switching to Japanese
-                toggleText.textContent = 'Español'; // Spanish
-                nextLanguage = 'ja';
-                nextElements = japaneseElements;
-                hideElements1 = spanishElements;
-                hideElements2 = englishElements;
+                // Button says "日本語", so we're showing ENGLISH
+                toggleText.textContent = 'Español';
+                // Show English elements
+                englishElements.forEach(el => {
+                    el.style.display = '';
+                    // Special handling for buttons
+                    if (el.classList.contains('cta-btn')) {
+                        el.style.display = 'flex';
+                    }
+                });
             } else {
-                // Switching to Spanish (default)
+                // Button says "Español", so we're showing JAPANESE
                 toggleText.textContent = 'English';
-                nextLanguage = 'es';
-                nextElements = spanishElements;
-                hideElements1 = englishElements;
-                hideElements2 = japaneseElements;
+                // Show Japanese elements
+                japaneseElements.forEach(el => {
+                    el.style.display = '';
+                    // Special handling for buttons
+                    if (el.classList.contains('cta-btn')) {
+                        el.style.display = 'flex';
+                    }
+                });
             }
-            
-            // Hide all elements from other languages
-            hideElements1.forEach(el => {
-                el.style.display = 'none';
-            });
-            
-            hideElements2.forEach(el => {
-                el.style.display = 'none';
-            });
-            
-            // Show elements for the selected language
-            nextElements.forEach(el => {
-                el.style.display = '';
-                
-                // Special handling for buttons to maintain flex display
-                if (el.classList.contains('cta-btn')) {
-                    el.style.display = 'flex';
-                }
-            });
             
             // Update member names after language change
             setMemberNames();
