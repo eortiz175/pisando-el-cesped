@@ -399,8 +399,6 @@
             transform: translateY(-2px);
         }
 
-        /* IMPORTANT: NO LANGUAGE CSS RULES HERE - JavaScript handles everything */
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .band-logo {
@@ -766,23 +764,20 @@
             <div class="follow-text language-ja">Pisando el Cespedをフォロー</div>
             
             <div class="social-links">
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" id="spotifyLink">
                     <i class="fab fa-spotify"></i>
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" id="youtubeLink">
                     <i class="fab fa-youtube"></i>
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" id="instagramLink">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" id="facebookLink">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" id="tiktokLink">
                     <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
                 </a>
             </div>
             
@@ -806,6 +801,30 @@
         const START_TIME = 80;
         let autoplayAttempted = false;
         let autoplaySuccessful = false;
+
+        // ============================================
+        // SOCIAL MEDIA LINKS CONFIGURATION
+        // ============================================
+        const socialLinks = {
+            spotify: "https://open.spotify.com/artist/YOUR_SPOTIFY_ID", // Replace with your Spotify URL
+            youtube: "https://www.youtube.com/@PisandoElCesped", // Replace with your YouTube URL
+            instagram: "https://www.instagram.com/pisandoelcesped.nyc/", // Replace with your Instagram URL
+            facebook: "https://www.facebook.com/PisandoElCesped", // Replace with your Facebook URL
+            tiktok: "https://www.tiktok.com/@pisando.nyc" // Replace with your TikTok URL
+        };
+
+        function setupSocialLinks() {
+            console.log('Setting up social media links...');
+            
+            // Apply the URLs from the configuration
+            document.getElementById('spotifyLink').href = socialLinks.spotify;
+            document.getElementById('youtubeLink').href = socialLinks.youtube;
+            document.getElementById('instagramLink').href = socialLinks.instagram;
+            document.getElementById('facebookLink').href = socialLinks.facebook;
+            document.getElementById('tiktokLink').href = socialLinks.tiktok;
+            
+            console.log('Social links configured:', socialLinks);
+        }
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtubeBackground', {
@@ -916,9 +935,6 @@
             }
         }
 
-        // ============================================
-        // FIXED LANGUAGE TOGGLE FUNCTION - CORRECT CYCLE
-        // ============================================
         function toggleLanguage() {
             const languageToggle = document.getElementById('languageToggle');
             const toggleText = languageToggle.querySelector('span');
@@ -1087,14 +1103,12 @@
             img.src = photoUrl;
         }
 
-        // UPDATED SET MEMBER NAMES FUNCTION FOR 3 LANGUAGES
         function setMemberNames() {
             const languageToggle = document.getElementById('languageToggle');
             const toggleText = languageToggle.querySelector('span');
             const currentLanguageText = toggleText.textContent;
             
             // Determine which language is CURRENTLY SHOWING based on button text
-            // Button shows NEXT language, so we need to check what's showing
             let languageKey;
             
             if (currentLanguageText === 'English') {
@@ -1143,6 +1157,9 @@
 
             // Initialize languages on page load
             initializeLanguages();
+
+            // Set up social media links
+            setupSocialLinks();
 
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach(card => {
