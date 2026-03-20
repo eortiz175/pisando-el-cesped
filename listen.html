@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pisando el Cesped - Listen Now</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            min-height: 100vh;
+            font-size: 15px;
+        }
+
+        /* Background Video (same as main page) */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        #youtubeBackground {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #youtubeBackground iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with Back Button */
+        .player-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: #c62828;
+            transform: translateX(-5px);
+        }
+
+        .player-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Language Toggle (same as main page) */
+        .language-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Sound Toggle (same as main page) */
+        .sound-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(198, 40, 40, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .sound-toggle:hover {
+            background: #c62828;
+            transform: scale(1.1);
+        }
+
+        /* Player Section */
+        .player-section {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem 0 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Logo in player */
+        .player-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .player-logo img {
+            max-width: 200px;
+            border-radius: 50%;
+            border: 3px solid #c62828;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Audio Player */
+        .audio-player-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .track-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .track-artist {
+            font-size: 1.1rem;
+            color: #c62828;
+            margin-bottom: 1rem;
+        }
+
+        /* Custom Audio Player */
+        .custom-audio-player {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #c62828;
+            border-radius: 3px;
+            width: 0%;
+            position: relative;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .control-btn:hover {
+            background: rgba(198, 40, 40, 0.3);
+            transform: scale(1.1);
+        }
+
+        .control-btn.play-pause {
+            background: #c62828;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+        }
+
+        .control-btn.play-pause:hover {
+            background: #d32f2f;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .volume-control i {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .volume-level {
+            height: 100%;
+            background: #c62828;
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #c62828;
+        }
+
+        /* Playlist */
+        .playlist {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .playlist-title {
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            background: rgba(198, 40, 40, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .playlist-items {
+            list-style: none;
+        }
+
+        .playlist-item {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .playlist-item:hover {
+            background: rgba(198, 40, 40, 0.2);
+        }
+
+        .playlist-item.active {
+            background: rgba(198, 40, 40, 0.3);
+            border-left: 3px solid #c62828;
+        }
+
+        .track-number {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #c62828;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-name {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .track-duration {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .play-indicator {
+            color: #c62828;
+            opacity: 0;
+        }
+
+        .playlist-item.active .play-indicator {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .player-title {
+                font-size: 1.5rem;
+            }
+            
+            .player-section {
+                padding: 1rem;
+            }
+            
+            .track-title {
+                font-size: 1.4rem;
+            }
+            
+            .controls {
+                gap: 1rem;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .control-btn.play-pause {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="language-toggle" id="languageToggle">
+        <i class="fas fa-language"></i>
+        <span>English</span>
+    </button>
+
+    <!-- Sound Toggle Button -->
+    <button class="sound-toggle" id="soundToggle" title="Toggle sound">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
+    <!-- YouTube Background Video -->
+    <div class="video-container">
+        <div id="youtubeBackground"></div>
+    </div>
+    <div class="video-overlay"></div>
+
+    <div class="container">
+        <!-- Header with Back Button -->
+        <div class="player-header">
+            <a href="javascript:history.back()" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span class="language-es">Volver</span>
+                <span class="language-en">Back</span>
+                <span class="language-ja">戻る</span>
+            </a>
+            <h1 class="player-title">
+                <span class="language-es">Nuestra Música</span>
+                <span class="language-en">Our Music</span>
+                <span class="language-ja">私たちの音楽</span>
+            </h1>
+            <div style="width: 100px;"></div> <!-- Spacer for alignment -->
+        </div>
+
+        <!-- Main Player Section -->
+        <section class="player-section">
+            <div class="player-logo">
+                <img src="/pisandoElCesped3.png" alt="Pisando el Cesped Logo">
+            </div>
+
+            <div class="audio-player-container">
+                <!-- Now Playing Info -->
+                <div class="now-playing">
+                    <div class="track-title" id="currentTrackTitle">
+                        <span class="language-es">Selecciona una canción</span>
+                        <span class="language-en">Select a song</span>
+                        <span class="language-ja">曲を選択してください</span>
+                    </div>
+                    <div class="track-artist">Pisando el Cesped</div>
+                </div>
+
+                <!-- Custom Audio Player -->
+                <div class="custom-audio-player">
+                    <audio id="audioPlayer" preload="metadata"></audio>
+                    
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <input type="range" id="progressSlider" value="0" min="0" max="100" step="0.1">
+                    </div>
+
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+
+                    <div class="controls">
+                        <button class="control-btn" id="prevBtn">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button class="control-btn play-pause" id="playPauseBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="control-btn" id="nextBtn">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                    </div>
+
+                    <div class="volume-control">
+                        <i class="fas fa-volume-down"></i>
+                        <div class="volume-slider">
+                            <div class="volume-level" id="volumeLevel"></div>
+                            <input type="range" id="volumeSlider" value="80" min="0" max="100">
+                        </div>
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                </div>
+
+                <!-- Playlist -->
+                <div class="playlist">
+                    <div class="playlist-title">
+                        <span class="language-es">Lista de Reproducción</span>
+                        <span class="language-en">Playlist</span>
+                        <span class="language-ja">プレイリスト</span>
+                    </div>
+                    <ul class="playlist-items" id="playlist">
+                        <!-- Playlist items will be populated by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="copyright language-es">
+                © 2023 Pisando el Cesped. Todos los derechos reservados.
+            </div>
+            <div class="copyright language-en">
+                © 2023 Pisando el Cesped. All rights reserved.
+            </div>
+            <div class="copyright language-ja">
+                © 2023 Pisando el Cesped. 無断複写・転載を禁じます。
+            </div>
+        </footer>
+    </div>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        let isMuted = true;
+        const START_TIME = 80;
+        let audioPlayer;
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+
+        // ============================================
+        // AUDIO FILES CONFIGURATION
+        // ============================================
+        const audioFiles = {
+            // Spanish track names
+            spanish: [
+                { file: 'track1.mp3', title: 'Canción Uno', duration: '3:45' },
+                { file: 'track2.mp3', title: 'Canción Dos', duration: '4:20' },
+                { file: 'track3.mp3', title: 'Canción Tres', duration: '3:30' },
+                { file: 'track4.mp3', title: 'Canción Cuatro', duration: '5:15' },
+                { file: 'track5.mp3', title: 'Canción Cinco', duration: '3:55' }
+            ],
+            // English track names
+            english: [
+                { file: 'track1.mp3', title: 'Song One', duration: '3:45' },
+                { file: 'track2.mp3', title: 'Song Two', duration: '4:20' },
+                { file: 'track3.mp3', title: 'Song Three', duration: '3:30' },
+                { file: 'track4.mp3', title: 'Song Four', duration: '5:15' },
+                { file: 'track5.mp3', title: 'Song Five', duration: '3:55' }
+            ],
+            // Japanese track names
+            japanese: [
+                { file: 'track1.mp3', title: '曲1', duration: '3:45' },
+                { file: 'track2.mp3', title: '曲2', duration: '4:20' },
+                { file: 'track3.mp3', title: '曲3', duration: '3:30' },
+                { file: 'track4.mp3', title: '曲4', duration: '5:15' },
+                { file: 'track5.mp3', title: '曲5', duration: '3:55' }
+            ]
+        };
+
+        // GitHub repository configuration for audio files
+        const githubAudioConfig = {
+            username: 'eortiz175',
+            repo: 'pisando-el-cesped',
+            branch: 'main',
+            folderPath: 'recordings'  // Create this folder in your repo for audio files
+        };
+
+        function getAudioUrl(filename) {
+            return `https://raw.githubusercontent.com/${githubAudioConfig.username}/${githubAudioConfig.repo}/${githubAudioConfig.branch}/${githubAudioConfig.folderPath}/${filename}`;
+        }
+
+        // Initialize audio player
+        function initAudioPlayer() {
+            audioPlayer = document.getElementById('audioPlayer');
+            
+            // Set up event listeners
+            audioPlayer.addEventListener('timeupdate', updateProgress);
+            audioPlayer.addEventListener('loadedmetadata', updateDuration);
+            audioPlayer.addEventListener('ended', playNext);
+            
+            // Progress slider
+            document.getElementById('progressSlider').addEventListener('input', function(e) {
+                const percent = e.target.value;
+                const time = (percent / 100) * audioPlayer.duration;
+                audioPlayer.currentTime = time;
+                updateProgress();
+            });
+
+            // Volume slider
+            document.getElementById('volumeSlider').addEventListener('input', function(e) {
+                const volume = e.target.value / 100;
+                audioPlayer.volume = volume;
+                document.getElementById('volumeLevel').style.width = e.target.value + '%';
+            });
+
+            // Play/Pause button
+            document.getElementById('playPauseBtn').addEventListener('click', togglePlayPause);
+
+            // Previous/Next buttons
+            document.getElementById('prevBtn').addEventListener('click', playPrevious);
+            document.getElementById('nextBtn').addEventListener('click', playNext);
+
+            // Load playlist
+            loadPlaylist();
+        }
+
+        function loadPlaylist() {
+            const playlistElement = document.getElementById('playlist');
+            const currentLanguage = getCurrentLanguage();
+            
+            playlistElement.innerHTML = '';
+            
+            audioFiles[currentLanguage].forEach((track, index) => {
+                const li = document.createElement('li');
+                li.className = 'playlist-item' + (index === currentTrackIndex ? ' active' : '');
+                li.dataset.index = index;
+                li.dataset.file = track.file;
+                
+                li.innerHTML = `
+                    <span class="track-number">${index + 1}</span>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-duration">${track.duration}</div>
+                    </div>
+                    <div class="play-indicator">
+                        <i class="fas fa-music"></i>
+                    </div>
+                `;
+                
+                li.addEventListener('click', () => playTrack(index));
+                playlistElement.appendChild(li);
+            });
+        }
+
+        function playTrack(index) {
+            const currentLanguage = getCurrentLanguage();
+            const track = audioFiles[currentLanguage][index];
+            
+            if (!track) return;
+            
+            const audioUrl = getAudioUrl(track.file);
+            
+            // Update UI
+            document.querySelectorAll('.playlist-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.playlist-item[data-index="${index}"]`).classList.add('active');
+            
+            document.getElementById('currentTrackTitle').textContent = track.title;
+            
+            // Load and play audio
+            audioPlayer.src = audioUrl;
+            audioPlayer.load();
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                updatePlayPauseButton();
+            }).catch(error => {
+                console.error('Playback failed:', error);
+                alert('Could not play audio file. Make sure the file exists in your GitHub repository.');
+            });
+            
+            currentTrackIndex = index;
+        }
+
+        function togglePlayPause() {
+            if (audioPlayer.src) {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    isPlaying = true;
+                } else {
+                    audioPlayer.pause();
+                    isPlaying = false;
+                }
+                updatePlayPauseButton();
+            }
+        }
+
+        function updatePlayPauseButton() {
+            const btn = document.getElementById('playPauseBtn');
+            btn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        }
+
+        function playNext() {
+            const currentLanguage = getCurrentLanguage();
+            const nextIndex = (currentTrackIndex + 1) % audioFiles[currentLanguage].length;
+            playTrack(nextIndex);
+        }
+
+        function playPrevious() {
+            const currentLanguage = getCurrentLanguage();
+            const prevIndex = (currentTrackIndex - 1 + audioFiles[currentLanguage].length) % audioFiles[currentLanguage].length;
+            playTrack(prevIndex);
+        }
+
+        function updateProgress() {
+            if (audioPlayer.duration) {
+                const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                document.getElementById('progressBar').style.width = percent + '%';
+                document.getElementById('progressSlider').value = percent;
+                
+                // Update time display
+                document.getElementById('currentTime').textContent = formatTime(audioPlayer.currentTime);
+            }
+        }
+
+        function updateDuration() {
+            document.getElementById('duration').textContent = formatTime(audioPlayer.duration);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function getCurrentLanguage() {
+            const toggleText = document.getElementById('languageToggle').querySelector('span').textContent;
+            if (toggleText === 'English') return 'spanish';
+            if (toggleText === '日本語') return 'english';
+            return 'japanese';
+        }
+
+        // YouTube Background Functions
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubeBackground', {
+                videoId: 'gX-SQe1FIo8',
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,
+                    'loop': 1,
+                    'playlist': 'gX-SQe1FIo8',
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1,
+                    'playsinline': 1,
+                    'start': START_TIME
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            isMuted = true;
+            updateSoundButton();
+        }
+
+        function updateSoundButton() {
+            const soundToggle = document.getElementById('soundToggle');
+            soundToggle.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+        }
+
+        function toggleSound() {
+            if (player) {
+                if (isMuted) {
+                    player.unMute();
+                    isMuted = false;
+                } else {
+                    player.mute();
+                    isMuted = true;
+                }
+                updateSoundButton();
+            }
+        }
+
+        // Language Toggle Functions
+        function toggleLanguage() {
+            const languageToggle = document.getElementById('languageToggle');
+            const toggleText = languageToggle.querySelector('span');
+            const currentLanguage = toggleText.textContent;
+            
+            // Hide all language elements
+            document.querySelectorAll('.language-es, .language-en, .language-ja').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            if (currentLanguage === 'English') {
+                toggleText.textContent = '日本語';
+                document.querySelectorAll('.language-en').forEach(el => el.style.display = 'block');
+            } else if (currentLanguage === '日本語') {
+                toggleText.textContent = 'Español';
+                document.querySelectorAll('.language-ja').forEach(el => el.style.display = 'block');
+            } else {
+                toggleText.textContent = 'English';
+                document.querySelectorAll('.language-es').forEach(el => el.style.display = 'block');
+            }
+            
+            // Reload playlist with new language
+            loadPlaylist();
+            if (audioPlayer.src) {
+                playTrack(currentTrackIndex);
+            }
+        }
+
+        function initializeLanguages() {
+            document.querySelectorAll('.language-en, .language-ja').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('.language-es').forEach(el => {
+                el.style.display = 'block';
+            });
+            document.getElementById('languageToggle').querySelector('span').textContent = 'English';
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLanguages();
+            initAudioPlayer();
+            
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
+            document.getElementById('soundToggle').addEventListener('click', toggleSound);
+        });
+    </script>
+</body>
+</html>
